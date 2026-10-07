@@ -47,10 +47,41 @@ h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8
 @keyframes blink{50%{opacity:0}}
 .sign{font-family:'Noto Serif Bengali',serif;color:var(--gold);font-size:22px;margin-top:2.2em;opacity:0;transition:opacity 2s}
 .sign.in{opacity:1}
-.again{margin-top:30px;background:none;border:1px solid var(--rose);color:var(--cream);padding:10px 24px;border-radius:30px;font:inherit;font-size:16px;cursor:pointer;opacity:0;transition:opacity 2s}
-.again.in{opacity:1}
-.again:focus-visible,.fast:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.fast{position:fixed;z-index:6;right:16px;bottom:max(16px,env(safe-area-inset-bottom));display:none;background:rgba(23,15,36,.75);border:1px solid rgba(234,163,184,.4);color:var(--mute);padding:6px 14px;border-radius:20px;font:inherit;font-size:14px;cursor:pointer;backdrop-filter:blur(6px)}
+.again{margin-top:34px;background:none;border:1px solid var(--rose);color:var(--cream);padding:10px 26px;border-radius:30px;font:inherit;font-size:16px;cursor:pointer}
+.again:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#letter.done{padding-bottom:10vh}
+.more{color:var(--gold);font-size:15px;margin-top:2.6em;opacity:0;transition:opacity 2s}
+.more.in{opacity:1}
+#moments{display:none;padding:4vh 0 16vh}
+#moments.show{display:block}
+h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-height:1.55}
+.msub{color:var(--mute);font-size:15px;margin:4px 0 52px}
+.tl{position:relative;display:flex;flex-direction:column;gap:64px}
+.tl::before{content:"";position:absolute;left:50%;top:-18px;bottom:-18px;width:1px;background:linear-gradient(transparent,rgba(246,196,109,.55) 6%,rgba(246,196,109,.55) 94%,transparent)}
+.card{position:relative;z-index:1;text-align:center;background:linear-gradient(160deg,#2c1b42,#20132e);border:1px solid rgba(234,163,184,.3);border-radius:20px;padding:14px 14px 26px;box-shadow:0 18px 40px rgba(0,0,0,.35);opacity:0;transform:translateY(26px);transition:opacity 1.3s,transform 1.3s}
+.card.in{opacity:1;transform:none}
+.card::before{content:"";position:absolute;left:50%;top:-32px;width:11px;height:11px;margin-left:-6px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px var(--gold)}
+.ph{position:relative;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:#150d22;cursor:zoom-in}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.contain img{object-fit:contain}
+.ph.empty{cursor:default;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#4a2a63,#1b1129)}
+.ph.empty::after{content:"ছবি এখানে বসবে 🤍";color:var(--mute);font-size:15px}
+.date{font-family:'Noto Serif Bengali',serif;color:var(--gold);font-size:18px;margin-top:18px;line-height:1.6}
+.ct{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:22px;color:var(--rose);margin:2px 0 8px;line-height:1.5}
+.cx{font-size:16px;opacity:.92;line-height:1.9;padding:0 6px}
+.end{font-family:'Noto Serif Bengali',serif;color:var(--rose);font-size:21px;line-height:1.8;margin-top:72px}
+.orn2{font-size:34px;line-height:1.4;padding-top:10px}
+.qt{font-family:'Noto Serif Bengali',serif;font-weight:500;font-size:22px;color:var(--cream);margin:10px 0 12px;line-height:1.75}
+.cx{margin:.55em 0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair .ph{aspect-ratio:9/17}
+.ph.shot{aspect-ratio:auto;background:none;display:flex;justify-content:center}
+.ph.shot img{width:auto;max-width:82%;max-height:70svh;height:auto;border-radius:12px;object-fit:initial}
+.ph.shot.empty{aspect-ratio:4/5;display:grid}
+#lb{position:fixed;inset:0;z-index:20;background:rgba(10,6,18,.94);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+#lb.show{display:flex}
+#lb img{max-width:100%;max-height:100%;border-radius:10px}
+@media (prefers-reduced-motion:reduce){.card{opacity:1;transform:none;transition:none}}
 @media (prefers-reduced-motion:reduce){.flame,.caret{animation:none}}
 </style>
 </head>
@@ -68,15 +99,22 @@ h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8
     <div class="orn"></div>
     <div id="lines"></div>
     <p class="sign" id="sign"></p>
+    <p class="more" id="more">নিচে আমাদের কিছু মুহূর্ত আছে</p>
+  </section>
+  <section id="moments">
+    <h2>আমাদের গল্পের কিছু মুহূর্ত</h2>
+    <p class="msub">যে দিনগুলো আমি কখনো ভুলব না</p>
+    <div class="tl" id="tl"></div>
+    <p class="end">ভালোবাসি তোমাকে, ঝর্ণা।<br>প্রতিটা দিন, আরও একটু বেশি করে। 🤍</p>
     <button class="again" id="again">আবার পড়ো</button>
   </section>
 </main>
-<button class="fast" id="fast">দ্রুত পড়ো</button>
+<div id="lb" role="dialog" aria-label="ছবি"><img id="lbimg" alt=""></div>
 
 <script>
 /* ===== বদলানোর জায়গা ===== */
-const NAME = "ঝর্ণা", FROM = "সৌরভ", BIRTHDAY = [11, 3]; // মাস, দিন
-const SPEED = 62; // প্রতিটি অক্ষরের মাঝের সময় (মিলিসেকেন্ড), বেশি = ধীর
+const NAME = "ঝর্ণা", FROM = "তোমার ভালোবাসা", BIRTHDAY = [11, 3]; // মাস, দিন
+const SPEED = 95; // প্রতিটি অক্ষরের মাঝের সময় (মিলিসেকেন্ড), বেশি = ধীর
 /* লাইনের শুরুতে "# " থাকলে সেটা হাইলাইট হবে, ফাঁকা লাইন = প্যারাগ্রাফ বিরতি */
 const LETTER = `৩ নভেম্বর, ২০০৭—
 একটা তারিখ, যেটা হয়তো পৃথিবীর ক্যালেন্ডারে আর দশটা দিনের মতোই সাধারণ। কিন্তু আমার কাছে? এই দিনটা আমার পৃথিবীর সবচেয়ে বিশেষ দিনগুলোর একটি। কারণ এই দিনেই জন্মেছিল সেই মানুষটা, যে একদিন আমার কাছে শুধু “একজন মানুষ” হয়ে থাকেনি—ধীরে ধীরে আমার অনুভূতি, আমার ভালো লাগা, আমার শান্তি, আমার হাসি, আমার অভিমান, আমার অপেক্ষা—সবকিছুর সঙ্গে মিশে গেছে।
@@ -193,8 +231,8 @@ function loop() {
 const seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter("bn", {granularity: "grapheme"}) : null;
 const chars = s => seg ? Array.from(seg.segment(s), x => x.segment) : Array.from(s);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-let fast = false, run = 0;
-const wait = ms => sleep(fast ? ms / 8 : ms);
+let run = 0;
+const wait = sleep;
 const follow = el => { const r = el.getBoundingClientRect(); const y = r.bottom + scrollY - innerHeight * .55; if (y > scrollY) scrollTo({top: y, behavior: "smooth"}); };
 
 async function typeLetter() {
@@ -221,9 +259,48 @@ async function typeLetter() {
     follow(p); await wait(hl ? 1500 : 800);
   }
   caret.remove(); burst(160, .5); setTimeout(() => burst(120, .4), 800);
-  $("sign").classList.add("in"); follow($("sign")); $("fast").style.display = "none";
-  await sleep(2200); $("again").classList.add("in"); follow($("again"));
+  $("sign").classList.add("in"); follow($("sign"));
+  await sleep(2800); renderMoments();
+  $("letter").classList.add("done"); $("more").classList.add("in"); $("moments").classList.add("show"); watchCards();
 }
+
+/* ===== আমাদের মুহূর্ত: তারিখ, লেখা আর ছবির লিংক এখানে বদলাও ===== */
+/* imgs: ছবির সরাসরি লিংক। ০টা = ছবি ছাড়া কার্ড, ১টা = একটা স্ক্রিনশট, ২টা = পাশাপাশি দুটো */
+const MOMENTS = [
+  {date: "মঙ্গলবার, ১ সেপ্টেম্বর ২০২৬", title: "প্রথম মনের কথা বলা", imgs: [],
+   text: ["এই দিনেই আমি প্রথমবার সাহস করে আমার অনুভূতিগুলো তোমাকে জানিয়েছিলাম।",
+          "বুকের ভেতর হাজারটা কথা ঘুরছিল, অথচ শব্দ খুঁজে পাচ্ছিলাম না। তবু বলেছিলাম, কারণ তোমাকে না বললে এই অনুভূতিটা আমার ভেতরেই থেকে যেত।"]},
+  {date: "মঙ্গলবার, ১৫ সেপ্টেম্বর ২০২৬", title: "তোমার সেই উত্তর", quote: "“হ্যাঁ, আমি আপনাকে ভালোবাসি”",
+   imgs: ["https://i.postimg.cc/fL0TWNN8/Screenshot-2026-10-03-13-15-09-30-50ef9f5a0f3fc24b6f0ffc8843167fe4.jpg"],
+   text: ["অপেক্ষার ১৪টা দিন পার হয়ে তুমি আমাকে সেই কথাটা বলেছিলে। হিসাবে ১৪ দিন, কিন্তু আমার কাছে মনে হয়েছিল একটা যুগ।",
+          "ওই একটা লাইন আমার পুরো পৃথিবী বদলে দিয়েছিল। এই কথোপকথনটা আজও আমার সবচেয়ে দামি স্মৃতিগুলোর একটি।"]},
+  {date: "তারপর থেকে, প্রতিটা দিন", title: "আমাদের ভালোবাসার যাত্রা",
+   imgs: ["https://i.postimg.cc/BbQYcqnT/Screenshot-2026-09-16-12-51-48-53-50ef9f5a0f3fc24b6f0ffc8843167fe4.jpg",
+          "https://i.postimg.cc/MHN7MxMR/Screenshot-2026-09-28-00-41-00-66-be80aec1db9a2b53c9d399db0c602181.jpg"],
+   text: ["তারপর থেকে প্রতিটা দিন একটু একটু করে আমাদের হয়ে উঠেছে। সকালের প্রথম মেসেজ, গভীর রাতের কথা, অকারণ হাসি, ছোট ছোট অভিমান—সবকিছুই এখন আমার কাছে সবচেয়ে দামি স্মৃতি।",
+          "এই স্ক্রিনশটগুলো শুধু কিছু কথোপকথন নয়। এগুলো আমাদের ভালোবাসার ছোট ছোট প্রমাণ, যা আমি সারাজীবন আগলে রাখতে চাই।",
+          "আমরা দুজন দুজনকে অসম্ভব রকম ভালোবাসি, আর আমি প্রতিদিন শুকরিয়া জানাই, তোমার মতো একজনকে আমার জীবনে পাওয়ার জন্য।"]}
+];
+/* ======================================================== */
+function renderMoments() {
+  if ($("tl").children.length) return;
+  const ph = (src, t, c) => `<div class="ph ${c}"><img src="${src}" alt="${t}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('empty');this.remove()"></div>`;
+  $("tl").innerHTML = MOMENTS.map(m => {
+    const n = m.imgs.length;
+    const media = n === 1 ? ph(m.imgs[0], m.title, "shot") : n > 1 ? `<div class="pair">${m.imgs.map(u => ph(u, m.title, "contain")).join("")}</div>` : `<div class="orn2">🤍</div>`;
+    return `<article class="card">${media}<p class="date">${m.date}</p><h3 class="ct">${m.title}</h3>${m.quote ? `<p class="qt">${m.quote}</p>` : ""}${m.text.map(t => `<p class="cx">${t}</p>`).join("")}</article>`;
+  }).join("");
+}
+function watchCards() {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold: .2});
+  document.querySelectorAll(".card").forEach(c => io.observe(c));
+}
+$("tl").addEventListener("click", e => {
+  const ph = e.target.closest(".ph:not(.empty)"); if (!ph) return;
+  $("lbimg").src = ph.querySelector("img").src; $("lb").classList.add("show");
+});
+$("lb").addEventListener("click", () => $("lb").classList.remove("show"));
+addEventListener("keydown", e => { if (e.key === "Escape") $("lb").classList.remove("show"); });
 
 /* the moment */
 const cake = $("cake");
@@ -235,10 +312,9 @@ $("cake").addEventListener("click", () => {
   setTimeout(() => $("stage").classList.add("fade"), 1500);
   setTimeout(() => {
     $("stage").style.display = "none"; $("letter").classList.add("show"); scrollTo(0, 0);
-    $("fast").style.display = "block"; typeLetter();
+    typeLetter();
   }, 2700);
 });
-$("fast").addEventListener("click", () => { fast = !fast; $("fast").textContent = fast ? "ধীরে পড়ো" : "দ্রুত পড়ো"; });
 $("again").addEventListener("click", () => location.reload());
 </script>
 </body>
