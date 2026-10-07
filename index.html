@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#170f24">
+<meta name="robots" content="noindex,nofollow">
 <title>শুভ জন্মদিন, ঝর্ণা 🕯️</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +13,16 @@
 :root{--ink:#170f24;--plum:#2b1840;--rose:#eaa3b8;--gold:#f6c46d;--cream:#f6ebef;--mute:#b9a6c4}
 *{box-sizing:border-box;margin:0}
 body{background:radial-gradient(120% 80% at 50% 0%,var(--plum),var(--ink) 70%) fixed;color:var(--cream);font-family:'Hind Siliguri',system-ui,sans-serif;font-size:18px;line-height:1.95;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:#050308;opacity:0;transition:opacity 2.5s ease;pointer-events:none}
+body.lights-out::before{opacity:.88}
 canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
 #stars{z-index:0}#fx{z-index:5}
 main{position:relative;z-index:1;max-width:580px;margin:0 auto;padding:0 24px;text-align:center}
-.stage{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(28px,env(safe-area-inset-top)) 0 max(28px,env(safe-area-inset-bottom));transition:opacity 1s}
+.stage{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(28px,env(safe-area-inset-top)) 0 max(28px,env(safe-area-inset-bottom));transition:opacity 1.5s ease}
 .stage.fade{opacity:0}
 h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8.5vw,48px);line-height:1.4}
 .sub{color:var(--mute);font-size:16px;max-width:30ch}
-.cake{position:relative;width:150px;height:190px;margin:18px 0 6px;cursor:pointer;-webkit-tap-highlight-color:transparent;background:none;border:0}
+.cake{position:relative;width:150px;height:190px;margin:18px 0 6px;cursor:pointer;-webkit-tap-highlight-color:transparent;background:none;border:0;animation:float 3s ease-in-out infinite}
 .cake:focus-visible{outline:2px solid var(--gold);outline-offset:10px;border-radius:12px}
 .wax{position:absolute;left:50%;bottom:62px;width:16px;height:70px;margin-left:-8px;border-radius:4px;background:linear-gradient(90deg,#f3d6df,#fff4f7 50%,#e7b9c7)}
 .wick{position:absolute;left:50%;bottom:130px;width:2px;height:10px;margin-left:-1px;background:#3a2a2a}
@@ -28,6 +31,7 @@ h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8
 .smoke{position:absolute;left:50%;bottom:140px;width:6px;height:40px;margin-left:-3px;border-radius:6px;background:linear-gradient(transparent,rgba(255,255,255,.35));opacity:0}
 .out .smoke{animation:smoke 1.8s ease-out}
 .plate{position:absolute;left:50%;bottom:0;width:150px;height:64px;margin-left:-75px;border-radius:14px 14px 22px 22px;background:linear-gradient(var(--rose) 0 26%,#7a3d62 26%)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(.94,1.08) rotate(2deg)}}
 @keyframes smoke{0%{opacity:.8;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px) scaleX(3)}}
 .count{display:flex;gap:10px;justify-content:center;margin-top:6px}
@@ -35,6 +39,9 @@ h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8
 .count b{display:block;font-family:'Noto Serif Bengali',serif;font-size:26px;line-height:1.3;color:var(--gold)}
 .count span{font-size:13px;color:var(--mute)}
 .hint{color:var(--gold);font-size:16px;min-height:1.8em}
+.suspense-text{font-family:'Noto Serif Bengali',serif;font-size:clamp(24px,6vw,32px);color:var(--gold);opacity:0;visibility:hidden;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);transition:opacity 1.5s,visibility 1.5s;text-align:center;width:100%;pointer-events:none;z-index:10}
+.suspense-text.show{opacity:1;visibility:visible;animation:heartPulse 2s infinite}
+@keyframes heartPulse{0%,100%{transform:translate(-50%,-50%) scale(.95);text-shadow:0 0 10px rgba(246,196,109,.2)}50%{transform:translate(-50%,-50%) scale(1.05);text-shadow:0 0 25px rgba(246,196,109,.7)}}
 /* letter */
 #letter{display:none;padding:20vh 0 55vh;text-align:center}
 #letter.show{display:block;animation:in 1.6s both}
@@ -76,12 +83,12 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pair .ph{aspect-ratio:9/17}
 .ph.shot{aspect-ratio:auto;background:none;display:flex;justify-content:center}
-.ph.shot img{width:auto;max-width:82%;max-height:70svh;height:auto;border-radius:12px;object-fit:initial}
+.ph.shot img{width:auto;max-width:82%;max-height:70vh;max-height:70svh;height:auto;border-radius:12px;object-fit:initial}
 .ph.shot.empty{aspect-ratio:4/5;display:grid}
 #lb{position:fixed;inset:0;z-index:20;background:rgba(10,6,18,.94);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 #lb.show{display:flex}
 #lb img{max-width:100%;max-height:100%;border-radius:10px}
-@media (prefers-reduced-motion:reduce){.card{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.card{opacity:1;transform:none;transition:none}.cake,.suspense-text.show{animation:none}}
 @media (prefers-reduced-motion:reduce){.flame,.caret{animation:none}}
 </style>
 </head>
@@ -95,6 +102,7 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
     <div class="count" id="count"></div>
     <p class="hint" id="hint"></p>
   </section>
+  <div id="suspense" class="suspense-text">চোখ বন্ধ করো... 🤍</div>
   <section id="letter">
     <div class="orn"></div>
     <div id="lines"></div>
@@ -113,7 +121,7 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
 
 <script>
 /* ===== বদলানোর জায়গা ===== */
-const NAME = "ঝর্ণা", FROM = "তোমার ভালোবাসা", BIRTHDAY = [11, 3]; // মাস, দিন
+const NAME = "ঝর্ণা", FROM = "তোমার ভালোবাসা সৌরভ", BIRTHDAY = [11, 3]; // মাস, দিন
 const SPEED = 95; // প্রতিটি অক্ষরের মাঝের সময় (মিলিসেকেন্ড), বেশি = ধীর
 /* লাইনের শুরুতে "# " থাকলে সেটা হাইলাইট হবে, ফাঁকা লাইন = প্যারাগ্রাফ বিরতি */
 const LETTER = `৩ নভেম্বর, ২০০৭—
@@ -146,7 +154,7 @@ const LETTER = `৩ নভেম্বর, ২০০৭—
 শুধু চাই—তুমি সুখী হও।
 মন খুলে হাসো।
 তোমার স্বপ্নগুলো তোমার নাগালের মধ্যে থাকুক।
-আর নিজের প্রতি কখনো অবিচার কোরো না, কখনো নিজেকে কষ্ট দিও না।
+আর নিজের প্রতি কখনো অবিচার কোরো না, কখনো নিজেকে কষ্ট দিও না ভুলেও।
 
 কারণ তুমি জানো কি?
 এই পৃথিবীতে তোমার মতো একজন মানুষ আছে—এটাই আমার কাছে যথেষ্ট সুন্দর একটা ব্যাপার।
@@ -181,7 +189,7 @@ You are, and will always be, one of the most beautiful feelings my heart has eve
 const $ = id => document.getElementById(id);
 const bn = n => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
 const still = matchMedia("(prefers-reduced-motion:reduce)").matches;
-const now = new Date(), target = new Date(now.getFullYear(), BIRTHDAY[0] - 1, BIRTHDAY[1]);
+const now = new Date(), target = new Date(2026, BIRTHDAY[0] - 1, BIRTHDAY[1]); // ২০২৬ সালের জন্মদিন
 const open = now >= target || location.search.includes("preview");
 
 $("title").textContent = "শুভ জন্মদিন, " + NAME;
@@ -272,14 +280,14 @@ const MOMENTS = [
           "বুকের ভেতর হাজারটা কথা ঘুরছিল, অথচ শব্দ খুঁজে পাচ্ছিলাম না। তবু বলেছিলাম, কারণ তোমাকে না বললে এই অনুভূতিটা আমার ভেতরেই থেকে যেত।"]},
   {date: "মঙ্গলবার, ১৫ সেপ্টেম্বর ২০২৬", title: "তোমার সেই উত্তর", quote: "“হ্যাঁ, আমি আপনাকে ভালোবাসি”",
    imgs: ["https://i.postimg.cc/fL0TWNN8/Screenshot-2026-10-03-13-15-09-30-50ef9f5a0f3fc24b6f0ffc8843167fe4.jpg"],
-   text: ["অপেক্ষার ১৪টা দিন পার হয়ে তুমি আমাকে সেই কথাটা বলেছিলে। হিসাবে ১৪ দিন, কিন্তু আমার কাছে মনে হয়েছিল একটা যুগ।",
+   text: ["অপেক্ষার ১৪টা দিন পার হওয়ার পর তুমি আমাকে তোমার অনুভূতির কথাটা বলেছিলে। কাগজে কলমের হিসাবে ১৪ দিন, কিন্তু আমার কাছে মনে হয়েছিল হয়তো একটা যুগ কেটে গিয়েছিল।",
           "ওই একটা লাইন আমার পুরো পৃথিবী বদলে দিয়েছিল। এই কথোপকথনটা আজও আমার সবচেয়ে দামি স্মৃতিগুলোর একটি।"]},
   {date: "তারপর থেকে, প্রতিটা দিন", title: "আমাদের ভালোবাসার যাত্রা",
    imgs: ["https://i.postimg.cc/BbQYcqnT/Screenshot-2026-09-16-12-51-48-53-50ef9f5a0f3fc24b6f0ffc8843167fe4.jpg",
           "https://i.postimg.cc/MHN7MxMR/Screenshot-2026-09-28-00-41-00-66-be80aec1db9a2b53c9d399db0c602181.jpg"],
-   text: ["তারপর থেকে প্রতিটা দিন একটু একটু করে আমাদের হয়ে উঠেছে। সকালের প্রথম মেসেজ, গভীর রাতের কথা, অকারণ হাসি, ছোট ছোট অভিমান—সবকিছুই এখন আমার কাছে সবচেয়ে দামি স্মৃতি।",
+   text: ["তারপর থেকে প্রতিটা দিন, একটু একটু করে আমাদের হয়ে উঠেছে। সকালের প্রথম মেসেজ, গভীর রাতের কথা, অকারণ হাসি, ছোট ছোট অভিমান—সবকিছুই এখন আমার কাছে সবচেয়ে দামি স্মৃতি।",
           "এই স্ক্রিনশটগুলো শুধু কিছু কথোপকথন নয়। এগুলো আমাদের ভালোবাসার ছোট ছোট প্রমাণ, যা আমি সারাজীবন আগলে রাখতে চাই।",
-          "আমরা দুজন দুজনকে অসম্ভব রকম ভালোবাসি, আর আমি প্রতিদিন শুকরিয়া জানাই, তোমার মতো একজনকে আমার জীবনে পাওয়ার জন্য।"]}
+          "আমরা দুজন দুজনকে অসম্ভব রকম ভালোবাসি, আর আমি প্রতিদিন সৃষ্টিকর্তার দরবারে শুকরিয়া জানাই, তোমার মতো একজনকে আমার জীবনে পাওয়ার জন্য।"]}
 ];
 /* ======================================================== */
 function renderMoments() {
@@ -304,16 +312,20 @@ addEventListener("keydown", e => { if (e.key === "Escape") $("lb").classList.rem
 
 /* the moment */
 const cake = $("cake");
-$("cake").addEventListener("click", () => {
+cake.addEventListener("click", () => {
   if (!open) { $("hint").textContent = "আর একটু ধৈর্য ধরো, ঝর্ণা 🤍"; return; }
   if (cake.classList.contains("out")) return;
-  cake.classList.add("out"); $("hint").textContent = "তোমার ইচ্ছেটা পূর্ণ হোক ✨";
+  cake.classList.add("out");
+  $("hint").textContent = "তোমার ইচ্ছেটা পূর্ণ হোক ✨";
   burst(170); setTimeout(() => burst(110), 700);
-  setTimeout(() => $("stage").classList.add("fade"), 1500);
+  document.body.classList.add("lights-out");
+  $("stage").classList.add("fade");
+  setTimeout(() => { $("stage").style.display = "none"; $("suspense").classList.add("show"); }, 1600);
+  setTimeout(() => { $("suspense").classList.remove("show"); document.body.classList.remove("lights-out"); }, 5600);
   setTimeout(() => {
-    $("stage").style.display = "none"; $("letter").classList.add("show"); scrollTo(0, 0);
-    typeLetter();
-  }, 2700);
+    $("suspense").style.display = "none";
+    $("letter").classList.add("show"); scrollTo(0, 0); typeLetter();
+  }, 7000);
 });
 $("again").addEventListener("click", () => location.reload());
 </script>
