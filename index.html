@@ -32,6 +32,8 @@ h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8
 .out .smoke{animation:smoke 1.8s ease-out}
 .plate{position:absolute;left:50%;bottom:0;width:150px;height:64px;margin-left:-75px;border-radius:14px 14px 22px 22px;background:linear-gradient(var(--rose) 0 26%,#7a3d62 26%)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.wishing .flame{animation:flickFast .4s ease-in-out infinite;box-shadow:0 0 60px 24px rgba(246,196,109,.6)}
+@keyframes flickFast{0%,100%{transform:scale(1.05,1) rotate(-5deg)}50%{transform:scale(.88,1.15) rotate(5deg)}}
 @keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(.94,1.08) rotate(2deg)}}
 @keyframes smoke{0%{opacity:.8;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px) scaleX(3)}}
 .count{display:flex;gap:10px;justify-content:center;margin-top:6px}
@@ -102,7 +104,7 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
     <div class="count" id="count"></div>
     <p class="hint" id="hint"></p>
   </section>
-  <div id="suspense" class="suspense-text">চোখ বন্ধ করো... 🤍</div>
+  <div id="suspense" class="suspense-text">একটি লম্বা নিঃশ্বাস নাও... 🤍</div>
   <section id="letter">
     <div class="orn"></div>
     <div id="lines"></div>
@@ -312,20 +314,27 @@ addEventListener("keydown", e => { if (e.key === "Escape") $("lb").classList.rem
 
 /* the moment */
 const cake = $("cake");
+let started = false;
 cake.addEventListener("click", () => {
   if (!open) { $("hint").textContent = "আর একটু ধৈর্য ধরো, ঝর্ণা 🤍"; return; }
-  if (cake.classList.contains("out")) return;
-  cake.classList.add("out");
-  $("hint").textContent = "তোমার ইচ্ছেটা পূর্ণ হোক ✨";
-  burst(170); setTimeout(() => burst(110), 700);
-  document.body.classList.add("lights-out");
-  $("stage").classList.add("fade");
-  setTimeout(() => { $("stage").style.display = "none"; $("suspense").classList.add("show"); }, 1600);
-  setTimeout(() => { $("suspense").classList.remove("show"); document.body.classList.remove("lights-out"); }, 5600);
+  if (started) return;
+  started = true;
+  cake.classList.add("wishing");
+  $("hint").textContent = "মনে মনে একটা ইচ্ছে করো... 🤍";
+  // ৫ সেকেন্ড ইচ্ছে করার সময়, তারপর মোমবাতি নিভবে
   setTimeout(() => {
-    $("suspense").style.display = "none";
-    $("letter").classList.add("show"); scrollTo(0, 0); typeLetter();
-  }, 7000);
+    cake.classList.remove("wishing"); cake.classList.add("out");
+    $("hint").textContent = "তোমার ইচ্ছেটা পূর্ণ হোক ✨";
+    burst(170); setTimeout(() => burst(110), 700);
+    document.body.classList.add("lights-out");
+    $("stage").classList.add("fade");
+    setTimeout(() => { $("stage").style.display = "none"; $("suspense").classList.add("show"); }, 1600);
+    setTimeout(() => { $("suspense").classList.remove("show"); document.body.classList.remove("lights-out"); }, 5600);
+    setTimeout(() => {
+      $("suspense").style.display = "none";
+      $("letter").classList.add("show"); scrollTo(0, 0); typeLetter();
+    }, 7000);
+  }, 5000);
 });
 $("again").addEventListener("click", () => location.reload());
 </script>
