@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#170f24">
+<title>শুভ জন্মদিন, ঝর্ণা 🕯️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500&family=Noto+Serif+Bengali:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#170f24;--plum:#2b1840;--rose:#eaa3b8;--gold:#f6c46d;--cream:#f6ebef;--mute:#b9a6c4}
+*{box-sizing:border-box;margin:0}
+body{background:radial-gradient(120% 80% at 50% 0%,var(--plum),var(--ink) 70%) fixed;color:var(--cream);font-family:'Hind Siliguri',system-ui,sans-serif;font-size:18px;line-height:1.95;overflow-x:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#stars{z-index:0}#fx{z-index:5}
+main{position:relative;z-index:1;max-width:580px;margin:0 auto;padding:0 24px;text-align:center}
+.stage{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(28px,env(safe-area-inset-top)) 0 max(28px,env(safe-area-inset-bottom));transition:opacity 1s}
+.stage.fade{opacity:0}
+h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8.5vw,48px);line-height:1.4}
+.sub{color:var(--mute);font-size:16px;max-width:30ch}
+.cake{position:relative;width:150px;height:190px;margin:18px 0 6px;cursor:pointer;-webkit-tap-highlight-color:transparent;background:none;border:0}
+.cake:focus-visible{outline:2px solid var(--gold);outline-offset:10px;border-radius:12px}
+.wax{position:absolute;left:50%;bottom:62px;width:16px;height:70px;margin-left:-8px;border-radius:4px;background:linear-gradient(90deg,#f3d6df,#fff4f7 50%,#e7b9c7)}
+.wick{position:absolute;left:50%;bottom:130px;width:2px;height:10px;margin-left:-1px;background:#3a2a2a}
+.flame{position:absolute;left:50%;bottom:138px;width:22px;height:46px;margin-left:-11px;border-radius:50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 75%,#fff6d6,var(--gold) 55%,#ff9a3c);box-shadow:0 0 40px 14px rgba(246,196,109,.45);transform-origin:50% 100%;animation:flick 1.4s ease-in-out infinite;transition:opacity .5s,transform .5s}
+.out .flame{opacity:0;transform:scale(.2);animation:none}
+.smoke{position:absolute;left:50%;bottom:140px;width:6px;height:40px;margin-left:-3px;border-radius:6px;background:linear-gradient(transparent,rgba(255,255,255,.35));opacity:0}
+.out .smoke{animation:smoke 1.8s ease-out}
+.plate{position:absolute;left:50%;bottom:0;width:150px;height:64px;margin-left:-75px;border-radius:14px 14px 22px 22px;background:linear-gradient(var(--rose) 0 26%,#7a3d62 26%)}
+@keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(.94,1.08) rotate(2deg)}}
+@keyframes smoke{0%{opacity:.8;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px) scaleX(3)}}
+.count{display:flex;gap:10px;justify-content:center;margin-top:6px}
+.count div{min-width:64px;padding:8px 6px;border:1px solid rgba(234,163,184,.35);border-radius:12px}
+.count b{display:block;font-family:'Noto Serif Bengali',serif;font-size:26px;line-height:1.3;color:var(--gold)}
+.count span{font-size:13px;color:var(--mute)}
+.hint{color:var(--gold);font-size:16px;min-height:1.8em}
+/* letter */
+#letter{display:none;padding:20vh 0 55vh;text-align:center}
+#letter.show{display:block;animation:in 1.6s both}
+@keyframes in{from{opacity:0}to{opacity:1}}
+.orn{width:56px;height:1px;margin:0 auto 38px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.l{margin:.3em 0;min-height:1.95em}
+.gap{height:1.6em}
+.h{font-family:'Noto Serif Bengali',serif;color:var(--rose);font-size:21px;line-height:1.8;margin:.5em 0}
+.caret{display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.15em;background:var(--gold);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.sign{font-family:'Noto Serif Bengali',serif;color:var(--gold);font-size:22px;margin-top:2.2em;opacity:0;transition:opacity 2s}
+.sign.in{opacity:1}
+.again{margin-top:30px;background:none;border:1px solid var(--rose);color:var(--cream);padding:10px 24px;border-radius:30px;font:inherit;font-size:16px;cursor:pointer;opacity:0;transition:opacity 2s}
+.again.in{opacity:1}
+.again:focus-visible,.fast:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.fast{position:fixed;z-index:6;right:16px;bottom:max(16px,env(safe-area-inset-bottom));display:none;background:rgba(23,15,36,.75);border:1px solid rgba(234,163,184,.4);color:var(--mute);padding:6px 14px;border-radius:20px;font:inherit;font-size:14px;cursor:pointer;backdrop-filter:blur(6px)}
+@media (prefers-reduced-motion:reduce){.flame,.caret{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas><canvas id="fx"></canvas>
+<main>
+  <section class="stage" id="stage">
+    <h1 id="title"></h1>
+    <p class="sub" id="sub"></p>
+    <button class="cake" id="cake" aria-label="মোমবাতি নিভাও"><span class="wax"></span><span class="wick"></span><span class="flame"></span><span class="smoke"></span><span class="plate"></span></button>
+    <div class="count" id="count"></div>
+    <p class="hint" id="hint"></p>
+  </section>
+  <section id="letter">
+    <div class="orn"></div>
+    <div id="lines"></div>
+    <p class="sign" id="sign"></p>
+    <button class="again" id="again">আবার পড়ো</button>
+  </section>
+</main>
+<button class="fast" id="fast">দ্রুত পড়ো</button>
+
+<script>
+/* ===== বদলানোর জায়গা ===== */
+const NAME = "ঝর্ণা", FROM = "সৌরভ", BIRTHDAY = [11, 3]; // মাস, দিন
+const SPEED = 62; // প্রতিটি অক্ষরের মাঝের সময় (মিলিসেকেন্ড), বেশি = ধীর
+/* লাইনের শুরুতে "# " থাকলে সেটা হাইলাইট হবে, ফাঁকা লাইন = প্যারাগ্রাফ বিরতি */
+const LETTER = `৩ নভেম্বর, ২০০৭—
+একটা তারিখ, যেটা হয়তো পৃথিবীর ক্যালেন্ডারে আর দশটা দিনের মতোই সাধারণ। কিন্তু আমার কাছে? এই দিনটা আমার পৃথিবীর সবচেয়ে বিশেষ দিনগুলোর একটি। কারণ এই দিনেই জন্মেছিল সেই মানুষটা, যে একদিন আমার কাছে শুধু “একজন মানুষ” হয়ে থাকেনি—ধীরে ধীরে আমার অনুভূতি, আমার ভালো লাগা, আমার শান্তি, আমার হাসি, আমার অভিমান, আমার অপেক্ষা—সবকিছুর সঙ্গে মিশে গেছে।
+
+# শুভ জন্মদিন, আমার "FULLTUSHIE" । 🫶🏻
+
+জানো, তোমাকে কীভাবে ভালোবাসি সেটা হয়তো সুন্দর কোনো সংজ্ঞায় বোঝাতে পারব না। কারণ কিছু অনুভূতি শব্দের চেয়ে অনেক বড় হয়, যা শব্দে কিংবা বর্ণে ব্যাখ্যা করা অসম্ভব । তোমার জন্য আমার অনুভূতিটাও ঠিক তেমন!
+
+কখনো কখনো নিঃশব্দে তোমার কথা মনে পড়া, কখনো অকারণে তোমার একটা মেসেজের অপেক্ষা করা, কখনো তোমার হাসির কথা মনে করে নিজের অজান্তেই হেসে ফেলা—আবার কখনো শুধু মনে হওয়া, “এই মানুষটা ভালো থাকুক… সবসময়।”
+
+তুমি আমার জীবনে কী হয়ে উঠেছ, সেটা হয়তো তুমি নিজেও পুরোপুরি জানো না।
+
+তুমি আমার সেই মানুষ, যার সঙ্গে কথা বললে আমি সময়ের হিসাব হারিয়ে ফেলি।
+তুমি আমার সেই অনুভূতি, যাকে ব্যাখ্যা করতে গেলে শব্দ কম পড়ে যায়।
+তুমি আমার সেই নাম, যেটা মনে পড়লে হৃদয়ের ভেতরটা অদ্ভুতভাবে নরম হয়ে যায়।
+আর তুমি সেই মানুষ, যার সুখের জন্য নিজের অজান্তেই মন থেকে দোয়া চলে আসে - যার জন্য আমি আমার জীবনটি পর্যন্ত দিয়ে দিতে পারি।
+
+আমি জানি না নিয়তি আমাদের জন্য কী লিখে রেখেছে। আমি জানি না আগামী বছরগুলো আমাদের কোথায় নিয়ে যাবে, কোন পথে হাঁটাবে, কতটা কাছে রাখবে কিংবা কতটা দূরে। কিন্তু একটা জিনিস আমি খুব ভালোভাবে জানি—তোমাকে ভালোবাসার এই অনুভূতিটা আমার জীবনের সবচেয়ে সুন্দর অনুভূতিগুলোর একটি।
+
+আমি চাই, তোমার জীবনের প্রতিটি সকাল একটু বেশি সুন্দর হোক।
+তোমার প্রতিটি রাত হোক প্রশান্তির।
+তোমার প্রতিটি স্বপ্ন পূর্ণতা পাক।
+তোমার চোখে হাসি থাকুক, মনে প্রশান্তি থাকুক, আর তোমার চারপাশে থাকুক এমন মানুষ—যারা তোমার হৃদয়ের মূল্য বুঝতে জানে।
+
+জীবন যদি কখনো তোমাকে ক্লান্ত করে দেয়, মনে রেখো—কোথাও একজন মানুষ আছে, যে তোমার হাসিটাকে পৃথিবীর সবচেয়ে সুন্দর জিনিসগুলোর একটি মনে করে। যে তোমার ভালো থাকাকে নিজের ভালো লাগার সঙ্গে জড়িয়ে ফেলেছে। যে হয়তো সবসময় তোমার পাশে থাকতে পারবে না, কিন্তু মন থেকে তোমার জন্য ভালো কিছু চাওয়া কখনো বন্ধ করবে না।
+
+# আর আজ, তোমার জন্মদিনে, আমার কোনো বড় চাওয়া নেই।
+
+শুধু চাই—তুমি সুখী হও।
+মন খুলে হাসো।
+তোমার স্বপ্নগুলো তোমার নাগালের মধ্যে থাকুক।
+আর নিজের প্রতি কখনো অবিচার কোরো না, কখনো নিজেকে কষ্ট দিও না।
+
+কারণ তুমি জানো কি?
+এই পৃথিবীতে তোমার মতো একজন মানুষ আছে—এটাই আমার কাছে যথেষ্ট সুন্দর একটা ব্যাপার।
+
+৩ নভেম্বর আমার কাছে শুধু তোমার Birthday নয়।
+এটা সেই দিনের স্মৃতি, যেদিন পৃথিবী তোমাকে পেয়েছিল—আর কোনো এক অদ্ভুত সুন্দর সময়ে, আমিও তোমার মতো একজন মানুষকে আমার হৃদয়ের এতটা কাছে পাওয়ার সৌভাগ্য পেয়েছিলাম।
+
+# Happy Birthday, my sweetest BowXan !! 🫶🏻❤️‍🩹
+
+তুমি আমার love,
+তুমি আমার feelings,
+তুমি আমার emotions,
+তুমি আমার happiness,
+তুমি আমার weakness,
+তুমি আমার comfort,
+আর কোনো কোনো মুহূর্তে—তুমি সত্যিই আমার পুরো পৃথিবী।
+
+তোমার জন্মদিনে শুধু এটুকুই বলব—
+
+# তোমাকে ভালোবাসি—আজ, এই মুহূর্তে, এই অনুভূতিতে! এমনকি আজন্মকাল পর্যন্ত।
+আর তোমার জন্য আমার হৃদয়ে যে জায়গাটা তৈরি হয়েছে, সেটা কোনো শব্দ দিয়ে পূর্ণ করা সম্ভব নয়।
+
+# শুভ জন্মদিন, আমার হৃদপিন্ডের স্পন্দন-
+তোমার আগামী প্রতিটি বছর যেন আগের বছরের চেয়েও সুন্দর হয়।
+আর তোমার জীবনের গল্পটা—শেষ পর্যন্ত—ভালোবাসা, শান্তি আর অসংখ্য সুন্দর মুহূর্তে ভরে থাকুক।
+
+Once again,
+# Happy Birthday my sweety, beauty and cutie Butterfly 🦋 🫶🏻
+You are, and will always be, one of the most beautiful feelings my heart has ever known.`;
+/* ======================== */
+
+const $ = id => document.getElementById(id);
+const bn = n => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+const still = matchMedia("(prefers-reduced-motion:reduce)").matches;
+const now = new Date(), target = new Date(now.getFullYear(), BIRTHDAY[0] - 1, BIRTHDAY[1]);
+const open = now >= target || location.search.includes("preview");
+
+$("title").textContent = "শুভ জন্মদিন, " + NAME;
+$("sub").textContent = open ? "মোমবাতিতে একটা টোকা দাও, মনে মনে একটা ইচ্ছে করো।" : "একটা ছোট্ট চমক তোমার জন্য অপেক্ষা করছে।";
+$("hint").textContent = open ? "👆 মোমবাতি নিভিয়ে ফেলো" : "৩ নভেম্বর এলেই এটা জ্বলে উঠবে";
+$("sign").textContent = "ইতি, " + FROM + " ❤️";
+
+if (!open) {
+  const tick = () => {
+    let d = Math.max(0, target - new Date());
+    $("count").innerHTML = [[864e5, "দিন"], [36e5, "ঘণ্টা"], [6e4, "মিনিট"], [1e3, "সেকেন্ড"]].map(([ms, l]) => {
+      const v = Math.floor(d / ms); d -= v * ms; return `<div><b>${bn(v)}</b><span>${l}</span></div>`;
+    }).join("");
+    if (target - new Date() <= 0) location.reload();
+  };
+  tick(); setInterval(tick, 1000);
+}
+
+/* stars */
+const sc = $("stars"), sx = sc.getContext("2d"); let stars = [];
+function sizeStars() { sc.width = innerWidth; sc.height = innerHeight; stars = Array.from({length: Math.min(110, innerWidth / 5)}, () => ({x: Math.random() * sc.width, y: Math.random() * sc.height, r: Math.random() * 1.3 + .3, p: Math.random() * 6})); }
+function drawStars(t) { sx.clearRect(0, 0, sc.width, sc.height); for (const s of stars) { sx.globalAlpha = .35 + .35 * Math.sin(t / 900 + s.p); sx.fillStyle = "#fff"; sx.beginPath(); sx.arc(s.x, s.y, s.r, 0, 7); sx.fill(); } if (!still) requestAnimationFrame(drawStars); }
+sizeStars(); addEventListener("resize", sizeStars); requestAnimationFrame(drawStars);
+
+/* confetti + hearts */
+const fc = $("fx"), fx = fc.getContext("2d"); let bits = [], running = false;
+const sizeFx = () => { fc.width = innerWidth; fc.height = innerHeight; }; sizeFx(); addEventListener("resize", sizeFx);
+const cols = ["#f6c46d", "#eaa3b8", "#fff4f7", "#c77dff", "#ff8fa3"];
+function burst(n, y = .42) {
+  if (still) return;
+  for (let i = 0; i < n; i++) { const a = Math.random() * 6.28, v = Math.random() * 9 + 3; bits.push({x: fc.width / 2, y: fc.height * y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 5, s: Math.random() * 8 + 5, c: cols[i % 5], r: Math.random() * 6, vr: Math.random() * .3 - .15, h: Math.random() < .4, life: 260}); }
+  if (!running) { running = true; requestAnimationFrame(loop); }
+}
+function loop() {
+  fx.clearRect(0, 0, fc.width, fc.height);
+  bits = bits.filter(b => b.life > 0 && b.y < fc.height + 30);
+  for (const b of bits) {
+    b.vy += .16; b.vx *= .985; b.x += b.vx; b.y += b.vy; b.r += b.vr; b.life--;
+    fx.save(); fx.translate(b.x, b.y); fx.rotate(b.r); fx.globalAlpha = Math.min(1, b.life / 60); fx.fillStyle = b.c;
+    if (b.h) { fx.font = b.s * 2 + "px serif"; fx.fillText("♥", -b.s, b.s); } else fx.fillRect(-b.s / 2, -b.s / 4, b.s, b.s / 2);
+    fx.restore();
+  }
+  if (bits.length) requestAnimationFrame(loop); else running = false;
+}
+
+/* typewriter */
+const seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter("bn", {granularity: "grapheme"}) : null;
+const chars = s => seg ? Array.from(seg.segment(s), x => x.segment) : Array.from(s);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let fast = false, run = 0;
+const wait = ms => sleep(fast ? ms / 8 : ms);
+const follow = el => { const r = el.getBoundingClientRect(); const y = r.bottom + scrollY - innerHeight * .55; if (y > scrollY) scrollTo({top: y, behavior: "smooth"}); };
+
+async function typeLetter() {
+  const id = ++run, box = $("lines"); box.innerHTML = "";
+  $("sign").classList.remove("in"); $("again").classList.remove("in");
+  const caret = document.createElement("span"); caret.className = "caret";
+  await wait(1800);
+  for (const raw of LETTER.split("\n")) {
+    if (id !== run) return;
+    if (!raw.trim()) { const g = document.createElement("div"); g.className = "gap"; box.appendChild(g); await wait(900); continue; }
+    const hl = raw.startsWith("# "), p = document.createElement("p");
+    p.className = hl ? "l h" : "l";
+    const t = document.createElement("span"); p.append(t, caret); box.appendChild(p);
+    if (hl) burst(36, .6);
+    let i = 0;
+    for (const c of chars(hl ? raw.slice(2) : raw)) {
+      if (id !== run) return;
+      t.textContent += c;
+      if (++i % 14 === 0) follow(p);
+      let d = SPEED;
+      if (/[,،]/.test(c)) d = SPEED * 4; else if (/[।?!…]/.test(c)) d = SPEED * 8; else if (c === "—") d = SPEED * 5; else if (c === " ") d = SPEED * .8;
+      await wait(d);
+    }
+    follow(p); await wait(hl ? 1500 : 800);
+  }
+  caret.remove(); burst(160, .5); setTimeout(() => burst(120, .4), 800);
+  $("sign").classList.add("in"); follow($("sign")); $("fast").style.display = "none";
+  await sleep(2200); $("again").classList.add("in"); follow($("again"));
+}
+
+/* the moment */
+const cake = $("cake");
+$("cake").addEventListener("click", () => {
+  if (!open) { $("hint").textContent = "আর একটু ধৈর্য ধরো, ঝর্ণা 🤍"; return; }
+  if (cake.classList.contains("out")) return;
+  cake.classList.add("out"); $("hint").textContent = "তোমার ইচ্ছেটা পূর্ণ হোক ✨";
+  burst(170); setTimeout(() => burst(110), 700);
+  setTimeout(() => $("stage").classList.add("fade"), 1500);
+  setTimeout(() => {
+    $("stage").style.display = "none"; $("letter").classList.add("show"); scrollTo(0, 0);
+    $("fast").style.display = "block"; typeLetter();
+  }, 2700);
+});
+$("fast").addEventListener("click", () => { fast = !fast; $("fast").textContent = fast ? "ধীরে পড়ো" : "দ্রুত পড়ো"; });
+$("again").addEventListener("click", () => location.reload());
+</script>
+</body>
+</html>
