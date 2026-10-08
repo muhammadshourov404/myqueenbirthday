@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#170f24">
 <meta name="robots" content="noindex,nofollow">
-<title> ভালোবাসি আপনাকে, পাখি 🕯️</title>
+<title>শুভ জন্মদিন, ঝর্ণা 🕯️</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500&family=Noto+Serif+Bengali:wght@500;700&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@ h1{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:clamp(30px,8
 #letter.done{padding-bottom:10vh}
 .more{color:var(--gold);font-size:15px;margin-top:2.6em;opacity:0;transition:opacity 2s}
 .more.in{opacity:1}
-#moments{display:none;padding:4vh 0 16vh}
+#moments{display:none;padding:4vh 0 10vh}
 #moments.show{display:block}
 h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-height:1.55}
 .msub{color:var(--mute);font-size:15px;margin:4px 0 52px}
@@ -87,6 +87,11 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
 .ph.shot{aspect-ratio:auto;background:none;display:flex;justify-content:center}
 .ph.shot img{width:auto;max-width:82%;max-height:70vh;max-height:70svh;height:auto;border-radius:12px;object-fit:initial}
 .ph.shot.empty{aspect-ratio:4/5;display:grid}
+#letter2{display:none;padding:14vh 0 55vh;text-align:center}
+#letter2.show{display:block;animation:in 1.6s both}
+#letter2.done{padding-bottom:12vh}
+#again{opacity:0;pointer-events:none;transition:opacity 2s}
+#again.in{opacity:1;pointer-events:auto}
 #lb{position:fixed;inset:0;z-index:20;background:rgba(10,6,18,.94);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 #lb.show{display:flex}
 #lb img{max-width:100%;max-height:100%;border-radius:10px}
@@ -104,7 +109,7 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
     <div class="count" id="count"></div>
     <p class="hint" id="hint"></p>
   </section>
-  <div id="suspense" class="suspense-text">একটি লম্বা নিঃশ্বাস নাও পাখি... 🤍</div>
+  <div id="suspense" class="suspense-text">একটি লম্বা নিঃশ্বাস নাও পাখি...🤍</div>
   <section id="letter">
     <div class="orn"></div>
     <div id="lines"></div>
@@ -115,8 +120,11 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
     <h2>আমাদের গল্পের কিছু মুহূর্ত</h2>
     <p class="msub">যে দিনগুলো আমি কখনো ভুলব না</p>
     <div class="tl" id="tl"></div>
-    <p class="end">ভালোবাসি তোমাকে অসম্ভব রকম ভালোবাসি, ঝর্ণা।<br>প্রতিটা দিন, প্রতিটা মুহূর্ত আরও একটু বেশি আর একটু গভীর। 🤍</p>
-    <button class="again" id="again">আবার পড়তে চাইলে এখানে ক্লিক করো</button>
+  </section>
+  <section id="letter2">
+    <div class="orn"></div>
+    <div id="lines2"></div>
+    <button class="again" id="again">আবার পড়তে চাইলে এখানে ক্লিক কর</button>
   </section>
 </main>
 <div id="lb" role="dialog" aria-label="ছবি"><img id="lbimg" alt=""></div>
@@ -186,6 +194,295 @@ const LETTER = `৩ নভেম্বর, ২০০৭—
 Once again,
 # Happy Birthday my sweety, beauty and cutie Butterfly 🦋 🫶🏻
 You are, and will always be, one of the most beautiful feelings my heart has ever known.`;
+/* দ্বিতীয় বার্তা (সব কার্ডের পরে টাইপ হবে) */
+const LETTER2 = `# তুমি কি এখনো স্ক্রিনের দিকে তাকিয়ে আছো?
+
+আমি জানি না,
+এই মুহূর্তে তোমার মুখে কেমন expression।
+
+হয়তো একটু হাসছো...
+
+হয়তো আমার কোনো একটা কথায়
+চুপ হয়ে গেছো।
+
+হয়তো ভাবছো—
+“এই মানুষটা এত কিছু লিখলো কীভাবে?”
+
+অথবা হয়তো
+আমার মতোই একটু থেমে
+এই মুহূর্তটাকে অনুভব করছো।
+
+একটু থামো...
+
+এত তাড়াহুড়ো করে পড়ো না।
+
+একটা লম্বা নিঃশ্বাস নাও।
+
+তারপর আবার পড়ো।
+
+কারণ আমি চাই,
+এই কয়েকটা মুহূর্তে
+তুমি শুধু লেখাগুলো পড়বে না...
+
+আমাকে একটু অনুভব করবে।
+
+এই যে এখন
+তুমি একমনে স্ক্রিনের অক্ষরগুলো দেখছো—
+
+ঠিক এই মুহূর্তটাকে
+আমার খুব মনে রাখতে ইচ্ছে করছে।
+
+যদিও আমি তোমার সামনে নেই,
+তবুও অদ্ভুতভাবে মনে হচ্ছে
+এই মুহূর্তে আমরা দুজন
+একই জায়গায় আছি।
+
+তুমি তোমার স্ক্রিনের ওপাশে,
+আর আমি আমার কিছু অনুভূতি নিয়ে
+এই অক্ষরগুলোর ওপাশে।
+
+মাঝে মাঝে খুব জানতে ইচ্ছে করে—
+
+আমি যখন হঠাৎ তোমার কথা ভাবি,
+তখন কি কোনোভাবে
+তোমার মনেও আমার কথা আসে?
+
+আমি যখন কোনো একটা কথায়
+তোমার হাসিটা কল্পনা করি,
+তখন কি তুমি কখনো
+আমার কোনো কথার কথা মনে করে
+নিজের অজান্তেই হাসো?
+
+আমি যখন তোমার কোনো ছোট্ট যত্ন
+মনে করে চুপ হয়ে যাই,
+তখন কি তুমিও কখনো
+আমাদের কোনো ছোট্ট মুহূর্ত
+মনে করে একটু থেমে যাও?
+
+হয়তো তুমি আমাকে
+সবকিছু বলে ওঠো না।
+
+আমিও হয়তো
+সবকিছু বুঝতে পারি না।
+
+কিন্তু কিছু অনুভূতি
+বলার প্রয়োজন হয় না।
+
+কিছু জিনিস
+মানুষ শুধু অনুভব করে।
+
+আর তোমার কাছ থেকে পাওয়া
+সেই অনুভূতিগুলোর কিছু কিছু
+আমি খুব নিঃশব্দে
+মনে রেখে দিয়েছি।
+
+তোমার কোনো একটা কথা,
+কোনো একটা অভিমান,
+কোনো একটা মুহূর্তে
+আমার জন্য তোমার চিন্তা—
+
+এসব হয়তো তোমার কাছে
+খুব ছোট্ট ব্যাপার।
+
+কিন্তু আমার কাছে
+এসবই প্রমাণ করে—
+
+# আমি একা নই।
+
+এই অনুভূতির
+ওপাশেও তুমি আছো।
+
+আর জানো,
+এই ব্যাপারটাই আমার সবচেয়ে ভালো লাগে।
+
+যে ভালোবাসাটা শুধু
+একদিক থেকে এগিয়ে যায়নি।
+
+কোথাও না কোথাও
+তোমার কাছ থেকেও
+তার একটা উত্তর এসেছে।
+
+কখনো কথায়,
+কখনো নীরবতায়,
+কখনো অভিমানে,
+কখনো শুধু আমার পাশে থেকে।
+
+হয়তো এই কারণেই
+তোমাকে নিয়ে আমার অনুভূতিটা
+শুধু “ভালোবাসা” শব্দে
+পুরোপুরি ধরা যায় না।
+
+এর মধ্যে আমাদের
+অনেকগুলো ছোট ছোট মুহূর্ত আছে।
+
+অনেক কথা আছে
+যেগুলোর কোনো সাক্ষী নেই।
+
+অনেক হাসি আছে
+যেগুলো শুধু আমরা জানি।
+
+অনেক অভিমান আছে
+যেগুলো শেষ পর্যন্ত
+আবার আমাদের কাছেই ফিরেছে।
+
+আর আছে একটা অদ্ভুত
+“আমরা”—
+
+যেটা কখন তৈরি হলো,
+আমি নিজেও জানি না।
+
+এই যান্ত্রিক স্ক্রিন
+আর keyboard-এর অক্ষরগুলো
+বড্ড সীমাবদ্ধ, জানো?
+
+এরা আমার কথাগুলো
+তোমার কাছে পৌঁছে দিতে পারে।
+
+কিন্তু এগুলো তো দেখাতে পারে না—
+
+কোনো একটা line লিখে
+আমি কতক্ষণ চুপ করে ছিলাম।
+
+কোনো একটা শব্দ লিখতে গিয়ে
+কতবার আবার মুছে দিয়েছি।
+
+কোনো একটা স্মৃতি মনে পড়লে
+কেন হঠাৎ মুখে হাসি চলে এসেছে।
+
+এসব তো screen জানে না।
+
+তুমি যদি আমার পাশে থাকতে,
+হয়তো এত কিছু লিখতে হতো না।
+
+হয়তো শুধু তোমার দিকে তাকিয়ে
+কিছুক্ষণ চুপ করে থাকলেই
+তুমি বুঝে যেতে।
+
+কিন্তু আজ
+আমাদের মাঝে এই screen-টাই আছে।
+
+তাই আজ এই অক্ষরগুলোকেই
+আমার হয়ে একটু কথা বলতে দিচ্ছি।
+
+এবার একটা কাজ করো।
+
+কয়েক সেকেন্ডের জন্য
+চোখটা বন্ধ করো।
+
+কিছু ভাবতে হবে না।
+
+শুধু আমাদের কথা মনে করো।
+
+আমাদের কোনো একটা
+হাসির মুহূর্ত।
+
+কোনো একটা ছোট্ট conversation।
+
+কোনো একটা অভিমান,
+যেটা পরে আবার ঠিক হয়ে গিয়েছিল।
+
+অথবা এমন কোনো মুহূর্ত,
+যখন তোমার মনে হয়েছিল—
+
+“হ্যাঁ,
+এই মানুষটা আমার।”
+
+...
+
+অনুভব করতে পারছো?
+
+এই অনুভূতিটাই
+আমি এই পুরো লেখার শেষে
+তোমার কাছে রেখে যেতে চেয়েছিলাম।
+
+কারণ আমি চাই না,
+এই লেখা শেষ হওয়ার সঙ্গে সঙ্গে
+সবকিছু শেষ হয়ে যাক।
+
+আমি চাই,
+শেষ line-টা পড়ার পরেও
+কিছুক্ষণ তুমি চুপ করে থাকো।
+
+হয়তো একটু হাসো।
+
+হয়তো আমার কথা ভাবো।
+
+হয়তো মনে মনে বলো—
+
+“পাগল একটা...”
+
+আর আমি দূরে কোথাও বসে
+ভাবব—
+
+হয়তো এই মুহূর্তে
+আমার FULLTUSHIE হাসছে।
+
+আর সত্যি বলতে,
+এই কল্পনাটাই আমার জন্য
+অনেক সুন্দর একটা gift।
+
+স্ক্রিনটা একসময় নিভে যাবে।
+
+কার্সরটা থেমে যাবে।
+
+এই লেখাটাও শেষ হয়ে যাবে।
+
+কিন্তু আমাদের গল্পের
+এই ছোট্ট মুহূর্তটা
+এখানেই শেষ হয়ে যাওয়ার নয়।
+
+কারণ কিছু লেখা
+screen-এ শেষ হয়...
+
+কিন্তু অনুভূতিগুলো
+সেখান থেকে শুরু হয়।
+
+তাই এখন আর কিছু বলব না।
+
+শুধু একটা মিষ্টি হাসি দাও।
+
+হ্যাঁ,
+এই যে...
+
+ঠিক ওই হাসিটাই।
+
+কারণ তোমার ওই হাসিটা
+দেখতে না পেলেও
+কল্পনা করতে পারাটাও
+আমার কাছে অনেক সুন্দর।
+
+আর যদি এই মুহূর্তে
+একটুও মনে হয়ে থাকে—
+
+“আমিও তাকে ভালোবাসি...”
+
+তাহলে আর কিছু বলার দরকার নেই।
+
+আমি হয়তো
+সেই না-বলা কথাটাও
+অনুভব করে নেব।
+
+# ভালো থেকো,
+# আমার কলিজার টুকরা। ❤️‍🩹
+
+আজ,
+আগামীকাল,
+আর তোমার জীবনের
+অসংখ্য সুন্দর দিনের মধ্যে
+একটু একটু করে
+আমাদের এই গল্পটাকেও
+জায়গা দিও।
+
+আর হ্যাঁ...
+
+শেষবারের মতো
+একটা হাসি দাও, পাখি।
+
+এই পুরো আয়োজনটার
+সবচেয়ে সুন্দর ending
+হবে তোমার সেই হাসিটাই।
+
+# 🫶🏻🦋`;
 /* ======================== */
 
 const $ = id => document.getElementById(id);
@@ -194,10 +491,10 @@ const still = matchMedia("(prefers-reduced-motion:reduce)").matches;
 const now = new Date(), target = new Date(2026, BIRTHDAY[0] - 1, BIRTHDAY[1]); // ২০২৬ সালের জন্মদিন
 const open = now >= target || location.search.includes("preview");
 
-$("title").textContent = "এটি শুধুমাত্র তোমার জন্যই, " + NAME;
-$("sub").textContent = open ? "মোমবাতিতে একটা টোকা দাও, মনে মনে একটা ইচ্ছে করো।" : "একটা ছোট্ট চমক তোমার জন্য অপেক্ষা করছে, স্যানোরিটা।💝";
-$("hint").textContent = open ? "👆 মোমবাতি নিভিয়ে ফেলো" : "নির্দিষ্ট সময় এলে, মোমবাতির আলোর মধ্যে একটি চাপ দিও- সত্যিকারের অনুভূতি বহিঃপ্রকাশের একটি ব্যর্থ চেষ্টা করেছি মাত্র";
-$("sign").textContent = "ইতি, " + FROM + " 😳❤️‍🩹";
+$("title").textContent = "এটি শুধুমাত্র তোমার জন্য'ই, " + NAME;
+$("sub").textContent = open ? "মোমবাতিতে একটা টোকা দাও, এবং অপেক্ষা করতে থাকো যা কিছু হবে সমস্ত কিছুই নিজে নিজেই হবে। তুমি শুধু দেখতে থাকো এবং অনুভব করতে থাকো, পাখি!" : "হয়তো খুব বড় কিছু করতে পারিনি তবে যা করেছি সবটা মন থেকে- স্যানোরিটা💝";
+$("hint").textContent = open ? "👆 মোমবাতি নিভিয়ে ফেলো" : "নির্দিষ্ট সময় এলে, মোমবাতির আলোর মধ্যে একটি চাপ দিও- সত্যিকারের অনুভূতি বহিঃপ্রকাশের একটি ব্যর্থ চেষ্টা করেছি মাত্র!!";
+$("sign").textContent = "ইতি, " + FROM + " ❤️";
 
 if (!open) {
   const tick = () => {
@@ -241,17 +538,19 @@ function loop() {
 const seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter("bn", {granularity: "grapheme"}) : null;
 const chars = s => seg ? Array.from(seg.segment(s), x => x.segment) : Array.from(s);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-let run = 0;
 const wait = sleep;
-const follow = el => { const r = el.getBoundingClientRect(); const y = r.bottom + scrollY - innerHeight * .55; if (y > scrollY) scrollTo({top: y, behavior: "smooth"}); };
+/* ঝর্ণা নিজে স্ক্রল করলে ৫ সেকেন্ড অটো স্ক্রল থেমে থাকবে */
+let lastUser = 0;
+["wheel", "touchmove"].forEach(ev => addEventListener(ev, () => { lastUser = Date.now(); }, {passive: true}));
+const userActive = () => Date.now() - lastUser < 5000;
+const follow = el => { if (userActive()) return; const r = el.getBoundingClientRect(); const y = r.bottom + scrollY - innerHeight * .55; if (y > scrollY) scrollTo({top: y, behavior: "smooth"}); };
+const goTo = (el, frac) => { if (userActive()) return; const y = el.getBoundingClientRect().top + scrollY - innerHeight * frac; scrollTo({top: Math.max(0, y), behavior: "smooth"}); };
 
-async function typeLetter() {
-  const id = ++run, box = $("lines"); box.innerHTML = "";
-  $("sign").classList.remove("in"); $("again").classList.remove("in");
+async function typeText(text, box) {
+  box.innerHTML = "";
   const caret = document.createElement("span"); caret.className = "caret";
   await wait(1800);
-  for (const raw of LETTER.split("\n")) {
-    if (id !== run) return;
+  for (const raw of text.split("\n")) {
     if (!raw.trim()) { const g = document.createElement("div"); g.className = "gap"; box.appendChild(g); await wait(900); continue; }
     const hl = raw.startsWith("# "), p = document.createElement("p");
     p.className = hl ? "l h" : "l";
@@ -259,7 +558,6 @@ async function typeLetter() {
     if (hl) burst(36, .6);
     let i = 0;
     for (const c of chars(hl ? raw.slice(2) : raw)) {
-      if (id !== run) return;
       t.textContent += c;
       if (++i % 14 === 0) follow(p);
       let d = SPEED;
@@ -267,11 +565,28 @@ async function typeLetter() {
       await wait(d);
     }
     follow(p); await wait(hl ? 1500 : 800);
+    if (raw.trim() === "...") await wait(3500);
   }
-  caret.remove(); burst(160, .5); setTimeout(() => burst(120, .4), 800);
+  caret.remove();
+}
+
+/* পুরো অনুষ্ঠানের ক্রম: চিঠি → কার্ড (অটো স্ক্রল) → দ্বিতীয় বার্তা → শেষ */
+async function runShow() {
+  await typeText(LETTER, $("lines"));
+  burst(160, .5); setTimeout(() => burst(120, .4), 800);
   $("sign").classList.add("in"); follow($("sign"));
-  await sleep(2800); renderMoments();
-  $("letter").classList.add("done"); $("more").classList.add("in"); $("moments").classList.add("show"); watchCards();
+  await sleep(2800);
+  await renderMoments();
+  $("letter").classList.add("done"); $("more").classList.add("in"); $("moments").classList.add("show");
+  await sleep(2000);
+  await playMoments();
+  await sleep(1800);
+  $("letter2").classList.add("show");
+  goTo($("letter2"), .1);
+  await typeText(LETTER2, $("lines2"));
+  burst(200, .5); setTimeout(() => burst(140, .4), 900);
+  $("letter2").classList.add("done");
+  $("again").classList.add("in"); follow($("again"));
 }
 
 /* ===== আমাদের মুহূর্ত: তারিখ, লেখা আর ছবির লিংক এখানে বদলাও ===== */
@@ -279,31 +594,47 @@ async function typeLetter() {
 const MOMENTS = [
   {date: "মঙ্গলবার, ১ সেপ্টেম্বর ২০২৬", title: "প্রথম মনের কথা বলা", imgs: [],
    text: ["এই দিনেই আমি প্রথমবার সাহস করে আমার অনুভূতিগুলো তোমাকে জানিয়েছিলাম।",
-          "বুকের ভেতর হাজারটা কথা ঘুরছিল, অথচ শব্দ খুঁজে পাচ্ছিলাম না। তবু বলেছিলাম, কারণ তোমাকে না বললে এই অনুভূতিটা আমার ভেতরেই থেকে যেত।"]},
+          "বুকের ভেতর হাজারটা কথা ঘুরছিল, অথচ শব্দ খুঁজে পাচ্ছিলাম না। তবু বলেছিলাম, কারণ তোমাকে না বললে এই অনুভূতিটা আমার ভেতরেই থেকে যেত আমৃত্য।"]},
   {date: "মঙ্গলবার, ১৫ সেপ্টেম্বর ২০২৬", title: "তোমার সেই উত্তর", quote: "“হ্যাঁ, আমি আপনাকে ভালোবাসি”",
    imgs: ["https://i.postimg.cc/fL0TWNN8/Screenshot-2026-10-03-13-15-09-30-50ef9f5a0f3fc24b6f0ffc8843167fe4.jpg"],
-   text: ["অপেক্ষার ১৪টা দিন পার হওয়ার পর তুমি আমাকে তোমার অনুভূতির কথাটা বলেছিলে। কাগজে কলমের হিসাবে ১৪ দিন, কিন্তু আমার কাছে মনে হয়েছিল হয়তো একটা যুগ কেটে গিয়েছিল।",
+   text: ["অপেক্ষার ১৪টা দিন পার হওয়ার পর তুমি আমাকে তোমার অনুভূতির কথাটা বলেছিলে। কাগজে কলমের হিসাবে ১৪ দিন হলেও, আমার কাছে মনে হয়েছিল হয়তো একটা যুগ কেটে গিয়েছিল।",
           "ওই একটা লাইন আমার পুরো পৃথিবী বদলে দিয়েছিল। এই কথোপকথনটা আজও আমার সবচেয়ে দামি স্মৃতিগুলোর একটি।"]},
-  {date: "তারপর থেকে, প্রতিটা দিন", title: "আমাদের ভালোবাসার দিন",
+  {date: "তারপর থেকে, প্রতিটা দিন", title: "আমাদের ভালোবাসার যাত্রা",
    imgs: ["https://i.postimg.cc/BbQYcqnT/Screenshot-2026-09-16-12-51-48-53-50ef9f5a0f3fc24b6f0ffc8843167fe4.jpg",
           "https://i.postimg.cc/MHN7MxMR/Screenshot-2026-09-28-00-41-00-66-be80aec1db9a2b53c9d399db0c602181.jpg"],
-   text: ["তারপর থেকে প্রতিটা দিন, একটু একটু করে আমি তুমি থেকে আমাদের হয়ে উঠার দিন। সকালের প্রথম মেসেজ, গভীর রাতের কথা, অকারণ হাসি, ছোট ছোট অভিমান—সবকিছুই এখন আমার কাছে সবচেয়ে দামি স্মৃতি।",
+   text: ["তারপর থেকে প্রতিটা দিন, একটু একটু করে তোমার আমার থেকে আমাদের হয়ে উঠেছে। সকালের প্রথম মেসেজ, গভীর রাতের কথা, অকারণ হাসি, ছোট ছোট অভিমান—সবকিছুই এখন আমার কাছে সবচেয়ে দামি স্মৃতি।",
           "এই স্ক্রিনশটগুলো শুধু কিছু কথোপকথন নয়। এগুলো আমাদের ভালোবাসার ছোট ছোট প্রমাণ, যা আমি সারাজীবন আগলে রাখতে চাই।",
-          "আমরা দুজন দুজনকে অসম্ভব রকম ভালোবাসি, আর আমি প্রতিদিন সৃষ্টিকর্তার দরবারে শুকরিয়া জানাই, তোমার মতো একজনকে আমার জীবনে পাওয়ার জন্য।"]}
+          "আমরা দুজন দুজনকে অসম্ভব রকম ভালোবাসি, আর আমি প্রতিদিন সৃষ্টিকর্তার দরবারে শুকরিয়া জানাই, তোমার মতো একজনকে আমার জীবনে পাওয়ার জন্য।"]},
+  {date: "সোমবার, ২৮ সেপ্টেম্বর ২০২৬, বিকেল ৪:২২", title: "সেই বিকেলটা",
+   imgs: ["https://i.postimg.cc/pX5DyC8W/IMG-20261009-004632.jpg"],
+   text: ["বিকেল ৪:২২। ঘড়ির কাঁটায় একটা সাধারণ সময়, কিন্তু আমার কাছে এটা এখন একটা সুন্দর স্মৃতির নাম।",
+          "কিছু মুহূর্ত কোনো বড় ঘটনা ছাড়াই মনে গেঁথে যায়। এই বিকেলটা আমার কাছে ঠিক তেমন, কারণ এর সঙ্গে জড়িয়ে আছে তোমার একটা অনুভূতি, যা আমি কোনোদিন ভুলতে চাই না।"]},
+  {date: "বৃহস্পতিবার, ৮ অক্টোবর ২০২৬", title: "আমাদের আরেকটা সুন্দর দিন",
+   imgs: ["https://i.postimg.cc/14148GhH/Screenshot-2026-10-09-00-49-56-44-99c04817c0de5652397fc8b56c3b3817.jpg"],
+   text: ["প্রতিটা নতুন দিন তোমার সঙ্গে আমার ভালোবাসার গল্পে একটা করে নতুন পাতা যোগ করে।",
+          "এই দিনটাও সেই পাতাগুলোর একটি। আমি এটাকে যত্ন করে তুলে রাখলাম, যেন আগামী বছরগুলোতে আবার ফিরে এসে এই দিনটার কথা মনে করে মুচকি হাসতে পারি।"]}
 ];
 /* ======================================================== */
 function renderMoments() {
-  if ($("tl").children.length) return;
-  const ph = (src, t, c) => `<div class="ph ${c}"><img src="${src}" alt="${t}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('empty');this.remove()"></div>`;
+  if ($("tl").children.length) return Promise.resolve();
+  const ph = (src, t, c) => `<div class="ph ${c}"><img src="${src}" alt="${t}" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('empty');this.remove()"></div>`;
   $("tl").innerHTML = MOMENTS.map(m => {
     const n = m.imgs.length;
     const media = n === 1 ? ph(m.imgs[0], m.title, "shot") : n > 1 ? `<div class="pair">${m.imgs.map(u => ph(u, m.title, "contain")).join("")}</div>` : `<div class="orn2">🤍</div>`;
     return `<article class="card">${media}<p class="date">${m.date}</p><h3 class="ct">${m.title}</h3>${m.quote ? `<p class="qt">${m.quote}</p>` : ""}${m.text.map(t => `<p class="cx">${t}</p>`).join("")}</article>`;
   }).join("");
+  // সব ছবি লোড হওয়া পর্যন্ত অপেক্ষা (সর্বোচ্চ ৮ সেকেন্ড), যেন স্ক্রলের হিসাব ঠিক থাকে
+  const loads = [...$("tl").querySelectorAll("img")].map(i => i.complete ? 0 : new Promise(r => { i.addEventListener("load", r); i.addEventListener("error", r); }));
+  return Promise.race([Promise.all(loads), sleep(8000)]);
 }
-function watchCards() {
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold: .2});
-  document.querySelectorAll(".card").forEach(c => io.observe(c));
+async function playMoments() {
+  for (const c of document.querySelectorAll(".card")) {
+    c.classList.add("in");
+    goTo(c, .1);
+    await sleep(c.querySelector(".ph") ? 3200 : 1500);
+    goTo(c.querySelector(".date"), .22);
+    await sleep(2500 + c.innerText.length * 40);
+  }
 }
 $("tl").addEventListener("click", e => {
   const ph = e.target.closest(".ph:not(.empty)"); if (!ph) return;
@@ -316,11 +647,11 @@ addEventListener("keydown", e => { if (e.key === "Escape") $("lb").classList.rem
 const cake = $("cake");
 let started = false;
 cake.addEventListener("click", () => {
-  if (!open) { $("hint").textContent = "আর একটু ধৈর্য ধরো, লক্ষীটি... 🤍"; return; }
+  if (!open) { $("hint").textContent = "আর একটু ধৈর্য ধরো, লক্ষীটি 🤍"; return; }
   if (started) return;
   started = true;
   cake.classList.add("wishing");
-  $("hint").textContent = "মনে মনে একটা ইচ্ছে করো... 🤍";
+  $("hint").textContent = "আমার দুষ্টু, মিষ্টি, লক্ষী পাখি... 🕊️🤍";
   // ৫ সেকেন্ড ইচ্ছে করার সময়, তারপর মোমবাতি নিভবে
   setTimeout(() => {
     cake.classList.remove("wishing"); cake.classList.add("out");
@@ -332,7 +663,7 @@ cake.addEventListener("click", () => {
     setTimeout(() => { $("suspense").classList.remove("show"); document.body.classList.remove("lights-out"); }, 5600);
     setTimeout(() => {
       $("suspense").style.display = "none";
-      $("letter").classList.add("show"); scrollTo(0, 0); typeLetter();
+      $("letter").classList.add("show"); scrollTo(0, 0); runShow();
     }, 7000);
   }, 5000);
 });
