@@ -125,10 +125,15 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
 .capsule{max-width:480px;margin:0 auto;padding:26px 20px 30px;border:1px solid rgba(246,196,109,.35);border-radius:20px;background:linear-gradient(160deg,#2c1b42,#20132e);box-shadow:0 18px 40px rgba(0,0,0,.35)}
 .cap-ico{font-size:38px;line-height:1.4}
 #finale .again{margin-top:64px}
+/* রঙিন লেখা: হাইলাইট লাইন রং বদলায়, শিরোনামে রঙিন ঝিলিক */
+@keyframes hue{0%,100%{color:#eaa3b8}20%{color:#f6c46d}40%{color:#b9a0ff}60%{color:#7fd8ff}80%{color:#ff9fc4}}
+.h,.wishbox{animation:hue 11s ease-in-out infinite}
+@keyframes shimmer{to{background-position:250% 0}}
+h1,h2,.ct,.tt{background:linear-gradient(90deg,#f6c46d,#eaa3b8,#b9a0ff,#7fd8ff,#f6c46d);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 10s linear infinite}
 #lb{position:fixed;inset:0;z-index:20;background:rgba(10,6,18,.94);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 #lb.show{display:flex}
 #lb img{max-width:100%;max-height:100%;border-radius:10px}
-@media (prefers-reduced-motion:reduce){.card,.together{opacity:1;transform:none;transition:none}.cake,.suspense-text.show{animation:none}}
+@media (prefers-reduced-motion:reduce){.card,.together{opacity:1;transform:none;transition:none}.cake,.suspense-text.show,.h,.wishbox,h1,h2,.ct,.tt{animation:none}}
 @media (prefers-reduced-motion:reduce){.flame,.caret{animation:none}}
 </style>
 </head>
@@ -401,7 +406,7 @@ const LETTER2 = `# তুমি কি এখনো স্ক্রিনের 
 এই অনুভূতিটাই...আমি এই পুরো লেখার শেষে তোমার কাছে রেখে যেতে চেয়েছিলাম।
 
 কারণ আমি চাই না,
-এই লেখা শেষ হওয়ার সঙ্গে সঙ্গে সবকিছু শেষ হয়ে যাক, তুমি ভুলে যাও আজকের দিনটি !!! হয়তো অনেক বড় কিছু আমি করতে পারিনি, তবে আমি চেষ্টা করেছি তোমাকে খুশি করার - সমস্ত পৃথিবীর বাহিরে গিয়ে এক ধরনের ভিন্ন অনুভূতি তোমাকে গিফট করার‌ জানিনা কতটুকু পারেছি। তবে আমি এইটা শিওর যে - আমার লিখাগুলো পড়ে তুমি নিশ্চয়ই হেসেছো 😁 ||
+এই লেখা শেষ হওয়ার সঙ্গে সঙ্গে সবকিছু শেষ হয়ে যাক, তুমি ভুলে যাও আজকের দিনটি !!! হয়তো অনেক বড় কিছু আমি করতে পারিনি, তবে আমি চেষ্টা করেছি তোমাকে খুশি করার - সমস্ত পৃথিবীর বাহিরে গিয়ে এক ধরনের ভিন্ন অনুভূতি তোমাকে গিফট করার জানিনা কতটুকু পারেছি। তবে আমি এইটা শিওর যে - আমার লিখাগুলো পড়ে তুমি নিশ্চয়ই হেসেছো 😁 ||
 
 আমি চাই,
 শেষ line-টা পড়ার পরেও কিছুক্ষণ তুমি চুপ করে থাকো, হয়তো একটু হাসো হয়তো আমার কথা ভাবো।
@@ -422,8 +427,6 @@ const LETTER2 = `# তুমি কি এখনো স্ক্রিনের 
 
 স্ক্রিনটা কিছুক্ষণের মধ্যেই নিভে যাবে, কার্সরটাও তার লিখা থামিয়ে দেবে।
 
-এই লেখাটাও শেষ হয়ে যাবে।
-
 কিন্তু আমাদের গল্পের
 এই ছোট্ট মুহূর্তটা
 এখানেই শেষ হয়ে যাওয়ার নয়..!
@@ -441,12 +444,6 @@ const LETTER2 = `# তুমি কি এখনো স্ক্রিনের 
 
 ঠিক ওই হাসিটাই। এই হাসিটাই চাইছিলাম তোমার কাছ থেইকা।
 
-কারণ তোমার ওই হাসিটা
-দেখতে না পেলেও
-কল্পনা করতে পারাটাও
-আমার কাছে অনেক সুন্দর।
-
- 
 # ভালো থেকো,
 # আমার কলিজার টুকরা। ❤️‍🩹
 
@@ -495,31 +492,103 @@ const WISHES = [
 ];
 
 /* ===== টাইম ক্যাপসুল: ৩ নভেম্বর ২০২৭-এ খুলবে ===== */
-const CAPSULE = `# ঝর্ণা, শুভ জন্মদিন! আজ তুমি ২০ বছরে পা দিলে। 🤍
+const CAPSULE = `# ঝর্ণা, শুভ জন্মদিন। আজ তুমি ২০ বছরে পা দিলে। 🤍
 
-এক বছর আগে আমি তোমার জন্য এই ছোট্ট সাইটটা বানিয়েছিলাম,
-আর এই বার্তাটা তালা দিয়ে রেখেছিলাম,
-যেন ঠিক আজকের দিনে তোমার কাছে পৌঁছায়।
+আজ ৩ নভেম্বর ২০২৭।
+এক বছর আগের এক রাতে আমি তোমার জন্য এই ছোট্ট সাইটটা বানিয়েছিলাম,
+আর এই বার্তাটা তালা দিয়ে রেখে গিয়েছিলাম,
+যেন ঠিক আজকের দিনে, তোমার ২০তম জন্মদিনে, এটা তোমার কাছে পৌঁছায়।
 
-এই এক বছরে আমাদের জীবনে নিশ্চয়ই কত কিছু বদলেছে।
-কত নতুন হাসি, কত নতুন স্মৃতি,
-হয়তো কিছু কঠিন দিনও।
+সত্যি বলতে, যখন আমি এটা লিখছি,
+তখন আমি জানি না আজকের পৃথিবীটা কেমন হবে।
+জানি না আমরা কোথায় থাকব,
+কেমন থাকব,
+কে কার কতটা কাছে থাকব।
 
-আমি জানি না আজ তুমি এই লেখাটা কোথায় বসে পড়ছো,
-কেমন একটা দিনে, কার পাশে।
-শুধু আশা করি, তোমার মুখে একটা হাসি আছে।
+জীবন এমনই।
+সে কাউকে আগে থেকে বলে দেয় না, সামনের পাতাগুলোতে কী লেখা আছে।
 
-এক বছর আগে আমি তোমাকে একটা কথা বলেছিলাম—
-আমি তোমাকে ভালোবাসি, আজ, আগামীকাল, আর অসংখ্য দিন।
-আমার মন বলছে, আজও কথাটা ঠিক আগের মতোই সত্যি।
+তাই এই চিঠিটা আমি এমনভাবে লিখছি,
+যেন দিনটা যেভাবেই আসুক,
+এর প্রতিটা কথা তোমার কাছে সত্যি হয়ে থাকে।
 
-# তোমার এই নতুন বছরটা হোক আরও সুন্দর, আরও আলোয় ভরা।
+# যদি সবকিছু ঠিকঠাকই থাকে,
+যদি আজ আমরা পাশাপাশি বসে এই লেখাটা পড়ছি—
 
-এখন একটা কাজ করো,
-আমাকে একটা মেসেজ দাও, অথবা শুধু একটা হাসি।
-আমি ঠিক বুঝে নেব। 🫶🏻
+তাহলে আমার আর কিছু চাওয়ার নেই।
+জেনে রেখো, এই এক বছর প্রতিটা দিন আমি আল্লাহর কাছে শুকরিয়া জানিয়েছি,
+তোমার মতো একজনকে আমার জীবনে পাওয়ার জন্য।
+আর আজকের এই ২০ বছর আমার কাছে আরও কাছ থেকে,
+আরও গভীর করে তোমাকে ভালোবাসার একটা নতুন শুরু।
+
+# যদি আজ আমি তোমার পাশে না থাকি,
+কোনো দূরত্বে, কোনো কারণে—
+
+তাহলে এই কথাগুলো মনে রেখো।
+আমি তোমাকে কখনো ভুলিনি।
+দোয়ায়, নীরবতায়, তোমার প্রতিটা ভালো থাকার প্রার্থনায়, আমি ছিলাম।
+আমাদের এই ছোট ছোট স্মৃতি, এই চিঠি, এই ছবিগুলো,
+এগুলো প্রমাণ, আমরা সত্যিই ভালোবেসেছিলাম।
+
+# আর যদি এমন হয়, আমি আর এই দুনিয়াতেই নেই—
+
+তাহলে কেঁদো,
+কিন্তু ভেঙে পোড়ো না।
+কারণ আমার ভালোবাসা কখনো শেষ হয় না,
+সে শুধু অন্য এক ঠিকানায় চলে যায়।
+আমি চাই তুমি হাসো, বাঁচো, স্বপ্ন দেখো,
+আর আমাকে মনে করো একটা মিষ্টি হাসি নিয়ে, চোখের জল নিয়ে নয়।
+আমার জন্য দোয়া কোরো, আমি তোমার জন্য সেখান থেকেও দোয়া করব।
+
+# আর যদি তুমি আজ আর আমার না থাকো,
+যদি সময় আমাদের দুজনকে দুই পথে নিয়ে গিয়ে থাকে—
+
+তাহলেও আমি কাউকে দোষ দেব না।
+ভালোবাসা জোর করে ধরে রাখার জিনিস নয়।
+আমি শুধু চাইব, তুমি যেখানেই থাকো, যার সঙ্গেই থাকো, সুখে থাকো।
+আর আমি তোমাকে মনে রাখব সেই মেয়েটা হিসেবে,
+যার একটা বাক্য আমার জীবনের সবচেয়ে সুন্দর বাক্য ছিল—
+“হ্যাঁ, আমি আপনাকে ভালোবাসি”।
+
+# কিন্তু আমরা যেখানেই থাকি, যেভাবেই থাকি,
+কিছু সত্য সময়ের ওপর নির্ভর করে না।
+
+১৫ সেপ্টেম্বর ২০২৬-এ তুমি যে কথাটা বলেছিলে, সেটা ঘটেছিল।
+আমাদের হাসিগুলো ঘটেছিল।
+আমাদের অভিমান, আমাদের রাত জাগা কথাগুলো ঘটেছিল।
+ভবিষ্যৎ এগুলোর কোনোটাই আমাদের কাছ থেকে কেড়ে নিতে পারে না।
+
+# কারণ যা একবার সত্যিই ঘটেছে,
+তাকে সময়ও মুছতে পারে না।
+
+তোমার জীবনে আমি ছিলাম, এটা সত্যি।
+আমার জীবনে তুমি ছিলে, এটা আরও বড় সত্যি।
+তুমি আমাকে শিখিয়েছিলে, ভালোবাসা শুধু একটা শব্দ নয়,
+ভালোবাসা একটা অনুভূতি, একটা দায়িত্ব, একটা দোয়া।
+
+আজ তুমি ২০ বছরে পা দিলে।
+একটা নতুন দশকের দরজায় দাঁড়িয়ে আছো।
+সামনে অনেক পথ, অনেক স্বপ্ন, অনেক অজানা দিন।
+আমি চাই, তুমি সবগুলো পথ সাহস নিয়ে হাঁটো,
+নিজের স্বপ্নগুলোকে কখনো ছোট কোরো না,
+আর নিজেকে কখনো অবহেলা কোরো না।
+
+আল্লাহ তোমাকে হিফাজতে রাখুন।
+তোমার প্রতিটা দিন ভরে দিন আলোয়, শান্তিতে আর রহমতে।
+তোমার সব ভালো ইচ্ছে একদিন সত্যি হোক।
+
+আর এখন, যেখানেই থাকো, যেভাবেই থাকো,
+একটা কাজ করো।
+চোখ বন্ধ করো, একটা লম্বা নিঃশ্বাস নাও,
+আর মনে করো ১৫ সেপ্টেম্বরের সেই দিনটা।
+আমার একটা অংশ চিরকাল ঠিক সেখানেই থেকে গেছে।
 
 # ভালো থেকো, আমার পাখি।
+আজ, আগামীকাল, আর তার পরেও।
+
+আর যদি কখনো আমার কথা মনে পড়ে,
+শুধু একটা হাসি দিও।
+আমি ঠিক বুঝে নেব। 🫶🏻
 
 ইতি, তোমার ভালোবাসা সৌরভ ❤️`;
 
@@ -545,10 +614,59 @@ if (!open) {
   tick(); setInterval(tick, 1000);
 }
 
-/* stars */
-const sc = $("stars"), sx = sc.getContext("2d"); let stars = [];
-function sizeStars() { sc.width = innerWidth; sc.height = innerHeight; stars = Array.from({length: Math.min(110, innerWidth / 5)}, () => ({x: Math.random() * sc.width, y: Math.random() * sc.height, r: Math.random() * 1.3 + .3, p: Math.random() * 6})); }
-function drawStars(t) { sx.clearRect(0, 0, sc.width, sc.height); for (const s of stars) { sx.globalAlpha = .35 + .35 * Math.sin(t / 900 + s.p); sx.fillStyle = "#fff"; sx.beginPath(); sx.arc(s.x, s.y, s.r, 0, 7); sx.fill(); } if (!still) requestAnimationFrame(drawStars); }
+/* ===== আকাশ: ঝিকমিক তারা, হালকা নীহারিকা আর মাঝেমধ্যে ধুমকেতু ===== */
+const sc = $("stars"), sx = sc.getContext("2d");
+let stars = [], bright = [], comets = [], nextComet = 7000, neb = null, lastS = 0;
+const starCols = ["#ffffff", "#cfe3ff", "#ffe7b0", "#ffd0e6", "#e2d4ff"];
+const pick = a => a[Math.floor(Math.random() * a.length)];
+function sizeStars() {
+  const W = sc.width = innerWidth, H = sc.height = innerHeight;
+  const n = Math.min(240, Math.floor(W * H / 5200));
+  stars = Array.from({length: n}, () => ({x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.3 + .25, p: Math.random() * 6.28, sp: .5 + Math.random() * 1.8, c: pick(starCols)}));
+  bright = Array.from({length: 12}, () => ({x: Math.random() * W, y: Math.random() * H * .85, r: 1.6 + Math.random() * 1.4, p: Math.random() * 6.28, sp: .7 + Math.random() * .9, c: pick(starCols)}));
+  neb = document.createElement("canvas"); neb.width = W; neb.height = H;
+  const g = neb.getContext("2d");
+  [[.2, .25, .55, "120,80,200", .22], [.85, .6, .5, "230,110,170", .16], [.5, .95, .6, "70,120,220", .16]].forEach(([px, py, pr, col, a]) => {
+    const R = Math.max(W, H) * pr, gr = g.createRadialGradient(W * px, H * py, 0, W * px, H * py, R);
+    gr.addColorStop(0, `rgba(${col},${a})`); gr.addColorStop(1, `rgba(${col},0)`); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  });
+}
+function spawnComet() {
+  const W = sc.width, H = sc.height, dir = Math.random() < .5 ? 1 : -1, sp = 180 + Math.random() * 90, ang = .12 + Math.random() * .3;
+  const pal = pick([["#bfe3ff", "#6aa8ff"], ["#ffe2b0", "#ff9a5c"], ["#ffc9e6", "#c77dff"], ["#d9ffe9", "#5fe0c0"]]);
+  comets.push({x: dir > 0 ? -60 : W + 60, y: H * (.05 + Math.random() * .4), vx: dir * sp * Math.cos(ang), vy: sp * Math.sin(ang), len: 150 + Math.random() * 120, a: pal[0], b: pal[1]});
+}
+function drawComet(c) {
+  const m = Math.hypot(c.vx, c.vy), ux = c.vx / m, uy = c.vy / m, tx = c.x - ux * c.len, ty = c.y - uy * c.len;
+  const g = sx.createLinearGradient(c.x, c.y, tx, ty);
+  g.addColorStop(0, c.a); g.addColorStop(.35, c.b + "aa"); g.addColorStop(1, c.b + "00");
+  sx.lineCap = "round"; sx.strokeStyle = g;
+  sx.globalAlpha = .35; sx.lineWidth = 9; sx.beginPath(); sx.moveTo(c.x, c.y); sx.lineTo(tx, ty); sx.stroke();
+  sx.globalAlpha = .95; sx.lineWidth = 2.6; sx.beginPath(); sx.moveTo(c.x, c.y); sx.lineTo(tx, ty); sx.stroke();
+  const h = sx.createRadialGradient(c.x, c.y, 0, c.x, c.y, 16); h.addColorStop(0, "#fff"); h.addColorStop(.35, c.a); h.addColorStop(1, c.b + "00");
+  sx.globalAlpha = 1; sx.fillStyle = h; sx.beginPath(); sx.arc(c.x, c.y, 16, 0, 7); sx.fill();
+}
+function drawStars(t) {
+  const W = sc.width, H = sc.height, dt = Math.min(.05, (t - lastS) / 1000 || 0), s = t / 1000; lastS = t;
+  sx.clearRect(0, 0, W, H);
+  if (neb) { sx.globalAlpha = 1; sx.drawImage(neb, 0, 0); }
+  for (const a of stars) { sx.globalAlpha = .25 + .6 * (.5 + .5 * Math.sin(s * a.sp + a.p)); sx.fillStyle = a.c; sx.beginPath(); sx.arc(a.x, a.y, a.r, 0, 7); sx.fill(); }
+  for (const b of bright) {
+    const k = .5 + .5 * Math.sin(s * b.sp + b.p), L = b.r * (3 + 4 * k);
+    sx.globalAlpha = .18 + .3 * k; sx.fillStyle = b.c; sx.beginPath(); sx.arc(b.x, b.y, b.r * 3.2, 0, 7); sx.fill();
+    sx.globalAlpha = .55 + .4 * k; sx.strokeStyle = b.c; sx.lineWidth = 1;
+    sx.beginPath(); sx.moveTo(b.x - L, b.y); sx.lineTo(b.x + L, b.y); sx.moveTo(b.x, b.y - L); sx.lineTo(b.x, b.y + L); sx.stroke();
+    sx.globalAlpha = 1; sx.fillStyle = "#fff"; sx.beginPath(); sx.arc(b.x, b.y, b.r * .9, 0, 7); sx.fill();
+  }
+  if (!still) {
+    nextComet -= dt * 1000;
+    if (nextComet <= 0 && comets.length < 2) { spawnComet(); nextComet = 14000 + Math.random() * 14000; }
+    for (const c of comets) { c.x += c.vx * dt; c.y += c.vy * dt; drawComet(c); }
+    comets = comets.filter(c => c.x > -c.len * 2 && c.x < W + c.len * 2 && c.y < H + 200);
+  }
+  sx.globalAlpha = 1;
+  if (!still) requestAnimationFrame(drawStars);
+}
 sizeStars(); addEventListener("resize", sizeStars); requestAnimationFrame(drawStars);
 
 /* confetti + hearts */
@@ -717,20 +835,21 @@ $("pbtn").addEventListener("click", () => {
 });
 document.addEventListener("visibilitychange", () => { if (!started) return; if (document.hidden) music.pause(); else music.play().catch(() => {}); });
 
-/* ===== প্রজাপতি ===== */
-const bc = $("bf"), bx = bc.getContext("2d"); let flies = [], nextFly = 3000, lastT = 0;
+/* ===== রঙিন প্রজাপতি (একসঙ্গে সর্বোচ্চ ৮টা) ===== */
+const bc = $("bf"), bx = bc.getContext("2d"); let flies = [], nextFly = 1500, lastT = 0;
 const sizeBf = () => { bc.width = innerWidth; bc.height = innerHeight; }; sizeBf(); addEventListener("resize", sizeBf);
-const flyCols = ["#f6c46d", "#eaa3b8", "#c77dff", "#ffd6e0"];
+const flyPairs = [["#f6c46d", "#ff9a3c"], ["#ff8fb8", "#d81b78"], ["#c9a7ff", "#6f6bff"], ["#7be0ff", "#3aa0ff"], ["#8affc1", "#22c1a0"], ["#ffd1dc", "#ff7eb3"], ["#fff176", "#ffa726"]];
 function spawnFly() {
-  const dir = Math.random() < .5 ? 1 : -1;
-  flies.push({x: dir > 0 ? -30 : bc.width + 30, y: bc.height * (.15 + Math.random() * .7), dir, sp: 38 + Math.random() * 30, amp: 24 + Math.random() * 36, fq: .8 + Math.random() * .8, ph: Math.random() * 6.28, s: 8 + Math.random() * 6, c: flyCols[Math.floor(Math.random() * flyCols.length)], t: 0, ang: 0});
+  const dir = Math.random() < .5 ? 1 : -1, pr = pick(flyPairs);
+  flies.push({x: dir > 0 ? -30 : bc.width + 30, y: bc.height * (.1 + Math.random() * .8), dir, sp: 34 + Math.random() * 34, amp: 22 + Math.random() * 40, fq: .8 + Math.random() * .9, ph: Math.random() * 6.28, s: 9 + Math.random() * 9, c1: pr[0], c2: pr[1], t: 0, ang: 0});
 }
 function drawFly(f) {
   const w = .25 + .75 * Math.abs(Math.cos(f.t * 14 + f.ph)), s = f.s;
-  bx.save(); bx.translate(f.x, f.y); bx.rotate(f.ang); bx.globalAlpha = .85; bx.fillStyle = f.c; bx.shadowColor = f.c; bx.shadowBlur = 10;
+  bx.save(); bx.translate(f.x, f.y); bx.rotate(f.ang); bx.globalAlpha = .9; bx.shadowColor = f.c1; bx.shadowBlur = 12;
   for (const k of [-1, 1]) {
-    bx.beginPath(); bx.ellipse(k * s * .55 * w, -s * .25, s * .6 * w, s * .5, -k * .5, 0, 6.283); bx.fill();
-    bx.beginPath(); bx.ellipse(k * s * .4 * w, s * .4, s * .4 * w, s * .32, k * .5, 0, 6.283); bx.fill();
+    bx.fillStyle = f.c1; bx.beginPath(); bx.ellipse(k * s * .55 * w, -s * .25, s * .6 * w, s * .5, -k * .5, 0, 6.283); bx.fill();
+    bx.fillStyle = f.c2; bx.beginPath(); bx.ellipse(k * s * .4 * w, s * .4, s * .4 * w, s * .32, k * .5, 0, 6.283); bx.fill();
+    bx.shadowBlur = 0; bx.fillStyle = "rgba(255,255,255,.55)"; bx.beginPath(); bx.ellipse(k * s * .6 * w, -s * .28, s * .2 * w, s * .17, 0, 0, 6.283); bx.fill(); bx.shadowBlur = 12;
   }
   bx.shadowBlur = 0; bx.strokeStyle = "#fff4f7"; bx.lineWidth = 1.4;
   bx.beginPath(); bx.moveTo(0, -s * .55); bx.lineTo(0, s * .6); bx.stroke();
@@ -741,7 +860,7 @@ function flyLoop(t) {
   const dt = Math.min(.05, (t - lastT) / 1000 || 0); lastT = t;
   bx.clearRect(0, 0, bc.width, bc.height);
   nextFly -= dt * 1000;
-  if (nextFly <= 0 && flies.length < 3) { spawnFly(); nextFly = 5000 + Math.random() * 6000; }
+  if (nextFly <= 0 && flies.length < 8) { spawnFly(); nextFly = 2200 + Math.random() * 2800; }
   for (const f of flies) {
     f.t += dt; f.x += f.dir * f.sp * dt; f.y -= 6 * dt;
     const vy = f.amp * f.fq * Math.cos(f.t * f.fq + f.ph) - 6; f.y += (vy + 6) * dt;
