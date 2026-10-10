@@ -130,6 +130,16 @@ h2{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:26px;line-he
 .h,.wishbox{animation:hue 11s ease-in-out infinite}
 @keyframes shimmer{to{background-position:250% 0}}
 h1,h2,.ct,.tt{background:linear-gradient(90deg,#f6c46d,#eaa3b8,#b9a0ff,#7fd8ff,#f6c46d);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 10s linear infinite}
+#scene{position:fixed;top:auto;right:auto;left:6px;bottom:max(6px,env(safe-area-inset-bottom));width:260px;height:150px;z-index:0;display:none;opacity:.6;filter:blur(1.2px);pointer-events:none}
+.ctl .pill{width:auto;padding:0 13px;border-radius:20px;font-size:14px;font-family:inherit}
+.ctl button.on{border-color:var(--gold);color:var(--gold)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.hb.new{animation:pulse 1.4s ease-in-out infinite}
+.hb.new svg{stroke:var(--gold);filter:drop-shadow(0 0 7px rgba(246,196,109,.8))}
+.hb.lock{opacity:.35;cursor:not-allowed}
+.hb.lock svg{fill:rgba(255,255,255,.04);stroke:rgba(234,163,184,.45)}
+.hb.shake{animation:shake .35s}
 #lb{position:fixed;inset:0;z-index:20;background:rgba(10,6,18,.94);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 #lb.show{display:flex}
 #lb img{max-width:100%;max-height:100%;border-radius:10px}
@@ -138,8 +148,8 @@ h1,h2,.ct,.tt{background:linear-gradient(90deg,#f6c46d,#eaa3b8,#b9a0ff,#7fd8ff,#
 </style>
 </head>
 <body>
-<canvas id="stars"></canvas><canvas id="bf"></canvas><canvas id="fx"></canvas>
-<div class="ctl" id="ctl"><button id="pbtn" hidden aria-label="থামাও">⏸</button><button id="mbtn" aria-label="গান বন্ধ করো">🔊</button></div>
+<canvas id="stars"></canvas><canvas id="scene"></canvas><canvas id="bf"></canvas><canvas id="fx"></canvas>
+<div class="ctl" id="ctl"><button id="pbtn" hidden aria-label="থামাও">⏸</button><button id="fbtn" class="pill" aria-label="দ্রুত পড়ো">⏩ দ্রুত</button><button id="mbtn" aria-label="গান বন্ধ করো">🔊</button></div>
 <main>
   <section class="stage" id="stage">
     <h1 id="title"></h1>
@@ -616,7 +626,7 @@ if (!open) {
 
 /* ===== আকাশ: ঝিকমিক তারা, হালকা নীহারিকা আর মাঝেমধ্যে ধুমকেতু ===== */
 const sc = $("stars"), sx = sc.getContext("2d");
-let stars = [], bright = [], comets = [], nextComet = 7000, neb = null, lastS = 0;
+let stars = [], bright = [], comets = [], nextComet = 4000, neb = null, lastS = 0;
 const starCols = ["#ffffff", "#cfe3ff", "#ffe7b0", "#ffd0e6", "#e2d4ff"];
 const pick = a => a[Math.floor(Math.random() * a.length)];
 function sizeStars() {
@@ -660,7 +670,7 @@ function drawStars(t) {
   }
   if (!still) {
     nextComet -= dt * 1000;
-    if (nextComet <= 0 && comets.length < 2) { spawnComet(); nextComet = 14000 + Math.random() * 14000; }
+    if (nextComet <= 0 && comets.length < 2) { spawnComet(); nextComet = 9000 + Math.random() * 2500; }
     for (const c of comets) { c.x += c.vx * dt; c.y += c.vy * dt; drawComet(c); }
     comets = comets.filter(c => c.x > -c.len * 2 && c.x < W + c.len * 2 && c.y < H + 200);
   }
@@ -694,8 +704,9 @@ function loop() {
 const seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter("bn", {granularity: "grapheme"}) : null;
 const chars = s => seg ? Array.from(seg.segment(s), x => x.segment) : Array.from(s);
 const rawSleep = ms => new Promise(r => setTimeout(r, ms));
-let paused = false;
-const sleep = async ms => { await rawSleep(ms); while (paused) await rawSleep(150); };
+let paused = false, fastMode = false;
+const FAST = .35;   // দ্রুত মোডে সব অপেক্ষা ও টাইপিং এই অনুপাতে কমে (০.৩৫ = প্রায় তিনগুণ দ্রুত)
+const sleep = async ms => { await rawSleep(fastMode ? ms * FAST : ms); while (paused) await rawSleep(150); };
 const wait = sleep;
 /* ঝর্ণা নিজে স্ক্রল করলে ৫ সেকেন্ড অটো স্ক্রল থেমে থাকবে */
 let lastUser = 0;
@@ -730,7 +741,7 @@ async function typeText(text, box) {
 
 /* পুরো অনুষ্ঠানের ক্রম: চিঠি → কার্ড (অটো স্ক্রল) → দ্বিতীয় বার্তা → চাওয়া ও টাইম ক্যাপসুল */
 async function runShow() {
-  $("pbtn").hidden = false;
+  $("pbtn").hidden = false; startScenes();
   await typeText(LETTER, $("lines"));
   burst(160, .5); setTimeout(() => burst(120, .4), 800);
   $("sign").classList.add("in"); follow($("sign"));
@@ -873,24 +884,29 @@ if (!still) requestAnimationFrame(flyLoop);
 
 /* ===== ১৯টা চাওয়া ===== */
 const HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
-$("hearts").innerHTML = WISHES.map((w, i) => `<button class="hb" aria-label="চাওয়া ${bn(i + 1)}">${HEART}<span>${bn(i + 1)}</span></button>`).join("");
-let wishRun = 0, allDone = false;
+$("hearts").innerHTML = WISHES.map((w, i) => `<button class="hb${i === 0 ? " new" : " lock"}" aria-label="চাওয়া ${bn(i + 1)}">${HEART}<span>${bn(i + 1)}</span></button>`).join("");
+let wishRun = 0, unlocked = 1, wishFinale = false;   // একটা চাওয়া পুরো দেখা হলে পরেরটা খুলবে; আগেরগুলো আবার দেখা যাবে
 async function showWish(i, btn) {
   const id = ++wishRun, box = $("wishbox");
   document.querySelectorAll(".hb.cur").forEach(b => b.classList.remove("cur"));
-  btn.classList.add("on", "cur");
+  btn.classList.remove("new"); btn.classList.add("on", "cur");
   box.innerHTML = ""; box.scrollIntoView({behavior: "smooth", block: "center"});
   const t = document.createElement("span"), caret = document.createElement("span"); caret.className = "caret"; box.append(t, caret);
   for (const c of chars(WISHES[i])) {
     if (id !== wishRun) return;
     t.textContent += c;
-    await rawSleep(/[,।]/.test(c) ? SPEED * 3 : SPEED * .8);
+    await rawSleep((fastMode ? FAST : 1) * (/[,।]/.test(c) ? SPEED * 3 : SPEED * .8));
   }
   caret.remove();
-  if (!allDone && document.querySelectorAll(".hb.on").length === WISHES.length) { allDone = true; burst(180, .5); }
+  if (i === unlocked - 1) {
+    if (unlocked < WISHES.length) { const nb = $("hearts").children[unlocked]; unlocked++; nb.classList.remove("lock"); nb.classList.add("new"); }
+    else if (!wishFinale) { wishFinale = true; burst(180, .5); }
+  }
 }
 $("hearts").addEventListener("click", e => {
-  const b = e.target.closest(".hb"); if (b) showWish([...$("hearts").children].indexOf(b), b);
+  const b = e.target.closest(".hb"); if (!b) return;
+  if (b.classList.contains("lock")) { b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); return; }
+  showWish([...$("hearts").children].indexOf(b), b);
 });
 
 /* ===== টাইম ক্যাপসুল (৩ নভেম্বর ২০২৭-এ খুলবে; পরীক্ষার জন্য লিংকে ?capsule দাও) ===== */
@@ -907,6 +923,141 @@ if (now >= UNLOCK || location.search.includes("capsule")) {
   $("capmsg").textContent = "এই ছোট্ট বাক্সটা এখন বন্ধ। আমার একটা কথা এর ভেতরে তালাবদ্ধ হয়ে অপেক্ষা করছে। ৩ নভেম্বর ২০২৭, তোমার পরের জন্মদিনে, আবার এই লিংকে এসো, তখনই এটা খুলবে।";
   $("capleft").textContent = "খুলতে আর বাকি " + bn(Math.ceil((UNLOCK - now) / 864e5)) + " দিন";
 }
+
+/* ===== ঝাপসা ছোট্ট দৃশ্য: ছেলে-মেয়ের রোমান্টিক মুহূর্ত (কোণায়, কিছুক্ষণ পরপর) ===== */
+const scn = $("scene"), sg = scn.getContext("2d"), SW = 260, SH = 150, GY = 132;
+scn.width = SW; scn.height = SH;
+let sdt = .016, sceneIdx = 0;
+const lerp = (a, b, p) => a + (b - a) * Math.max(0, Math.min(1, p));
+const seq = (t, a, b) => Math.max(0, Math.min(1, (t - a) / (b - a)));
+function person(o) {
+  const g = sg, boy = o.kind === "boy", dir = o.dir || 1, bend = o.bend || 0, ph = o.ph || 0, amp = o.amp || 0, lean = o.lean || 0;
+  const hip = GY - 26 + bend * 11, sh = hip - 18 + bend * 5, hx = lean * .5, hy = sh - 9;
+  g.save(); g.translate(o.x, 0); g.scale(dir, 1);
+  g.fillStyle = g.strokeStyle = boy ? "#a9c2ff" : "#ff9ec9"; g.shadowColor = g.fillStyle; g.shadowBlur = 8; g.lineCap = "round";
+  g.lineWidth = 3.4;
+  for (const k of [0, Math.PI]) {
+    const sw = Math.sin(ph + k) * amp, lift = Math.max(0, Math.cos(ph + k)) * amp * .5;
+    g.beginPath(); g.moveTo(0, hip); g.lineTo(sw, GY - lift); g.stroke();
+  }
+  if (boy) { g.lineWidth = 8; g.beginPath(); g.moveTo(hx * .6, sh + 1); g.lineTo(0, hip); g.stroke(); }
+  else { g.beginPath(); g.moveTo(hx * .6 - 3.5, sh); g.lineTo(hx * .6 + 3.5, sh); g.lineTo(10 + Math.sin(ph) * amp * .25, hip + 9); g.lineTo(-10 - Math.sin(ph) * amp * .25, hip + 9); g.closePath(); g.fill(); }
+  g.beginPath(); g.arc(hx, hy, 6.2, 0, 7); g.fill();
+  if (!boy) { g.lineWidth = 3; g.beginPath(); g.moveTo(hx - 4, hy - 3); g.quadraticCurveTo(hx - 13 - amp * .4, hy - 1 + Math.sin(ph * 2) * 2, hx - 12 - amp * .5, hy + 9 + Math.sin(ph * 2 + 1) * 3); g.stroke(); }
+  const hands = [], arms = o.arms || [amp ? Math.sin(ph) * .8 : 0, amp ? -Math.sin(ph) * .8 : 0];
+  g.lineWidth = 3;
+  for (const a of arms) {
+    const sx = hx * .6, sy = sh + 3, ex = sx + Math.sin(a) * 15, ey = sy + Math.cos(a) * 15;
+    g.beginPath(); g.moveTo(sx, sy); g.lineTo(ex, ey); g.stroke(); hands.push({x: o.x + dir * ex, y: ey});
+  }
+  g.restore();
+  return hands;
+}
+function heart(x, y, a, sz, col) { sg.save(); sg.globalAlpha *= Math.max(0, a); sg.fillStyle = col; sg.font = sz + "px serif"; sg.fillText("♥", x, y); sg.restore(); }
+function mini(x, y, t, c1, c2) {
+  const w = .3 + .7 * Math.abs(Math.cos(t * 16));
+  sg.save(); sg.translate(x, y); sg.shadowColor = c1; sg.shadowBlur = 6;
+  for (const k of [-1, 1]) {
+    sg.fillStyle = c1; sg.beginPath(); sg.ellipse(k * 4 * w, -2, 4 * w, 3.4, -k * .5, 0, 7); sg.fill();
+    sg.fillStyle = c2; sg.beginPath(); sg.ellipse(k * 3 * w, 2.6, 3 * w, 2.4, k * .5, 0, 7); sg.fill();
+  }
+  sg.restore();
+}
+function ground() {
+  const gr = sg.createLinearGradient(0, 0, SW, 0);
+  gr.addColorStop(0, "rgba(255,255,255,0)"); gr.addColorStop(.2, "rgba(255,255,255,.28)"); gr.addColorStop(.8, "rgba(255,255,255,.28)"); gr.addColorStop(1, "rgba(255,255,255,0)");
+  sg.strokeStyle = gr; sg.lineWidth = 1.5; sg.beginPath(); sg.moveTo(0, GY + 1); sg.lineTo(SW, GY + 1); sg.stroke();
+}
+const drops = Array.from({length: 46}, () => ({x: Math.random() * SW, y: Math.random() * SH, l: 8 + Math.random() * 8, v: 190 + Math.random() * 120}));
+/* দৃশ্য ১: একই ছাতার নিচে বৃষ্টিতে দৌড় */
+function sceneRain(t, D) {
+  sg.strokeStyle = "rgba(190,215,255,.8)"; sg.lineWidth = 1;
+  for (const d of drops) {
+    d.y += d.v * sdt; d.x -= d.v * .2 * sdt;
+    if (d.y > GY) { d.y = -12; d.x = Math.random() * (SW + 50); }
+    sg.beginPath(); sg.moveTo(d.x, d.y); sg.lineTo(d.x + d.l * .2, d.y - d.l); sg.stroke();
+  }
+  const p = t / D, x = lerp(-50, SW + 60, p), ph = t * 13;
+  person({x: x - 22, kind: "girl", ph: ph + 1.2, amp: 8, lean: 3, arms: [.5 * Math.sin(ph + 1), -.5 * Math.sin(ph + 1)]});
+  const boy = person({x, kind: "boy", ph, amp: 9, lean: 3, arms: [2.5, -.4 + .4 * Math.sin(ph)]});
+  const cx = x - 10, cy = GY - 74 + Math.sin(ph * 2) * 1.2;
+  sg.save(); sg.strokeStyle = "#ffe08a"; sg.lineWidth = 1.6; sg.beginPath(); sg.moveTo(cx, cy); sg.lineTo(boy[0].x, boy[0].y); sg.stroke();
+  sg.fillStyle = "rgba(255,150,200,.92)"; sg.shadowColor = "#ff96c8"; sg.shadowBlur = 8;
+  sg.beginPath(); sg.arc(cx, cy, 30, Math.PI, 0); sg.closePath(); sg.fill(); sg.restore();
+  sg.strokeStyle = "rgba(190,215,255,.55)"; sg.lineWidth = 1;
+  for (const k of [0, 1]) { const fxp = x - k * 22 + Math.sin(ph + k * 1.2) * 9, r = 3 + ((t * 9 + k * 2) % 4); sg.beginPath(); sg.ellipse(fxp, GY, r, 1.3, 0, 0, 7); sg.stroke(); }
+  if (p > .55) heart(x - 8, cy - 8 - (p - .55) * 50, seq(p, .55, .65) * (1 - seq(p, .88, 1)), 11, "#ff8fb8");
+}
+/* দৃশ্য ২: প্রজাপতির পিছনে দৌড় */
+function sceneButterfly(t, D) {
+  const p = t / D, run = seq(p, 0, .66), moving = p < .66, ph = t * 12;
+  const gx = lerp(-30, 160, run), bx = lerp(-75, 128, run);
+  const girl = person({x: gx, kind: "girl", ph, amp: moving ? 9 : 0, lean: moving ? 4 : 0, arms: moving ? [1.7, .5 * Math.sin(ph)] : [1.9, .2]});
+  person({x: bx, kind: "boy", ph: ph + 2, amp: moving ? 8 : 0, lean: moving ? 3 : 0, arms: moving ? [.7 * Math.sin(ph + 2), -.7 * Math.sin(ph + 2)] : [2.8 + .2 * Math.sin(t * 6), .2]});
+  const chase = {x: gx + 46 + Math.sin(t * 4) * 8, y: GY - 58 + Math.sin(t * 3.3) * 14};
+  const rest = {x: girl[0].x + 2 + Math.sin(t * 3) * 2, y: girl[0].y - 9 + Math.sin(t * 5) * 2};
+  const k = seq(p, .58, .74);
+  mini(lerp(chase.x, rest.x, k), lerp(chase.y, rest.y, k), t, "#ffd166", "#ff7eb3");
+  if (p > .76) for (let i = 0; i < 3; i++) { const q = ((p - .76) * 4 + i * .33) % 1; heart(gx - 4 + i * 9, GY - 70 - q * 26, 1 - q, 9, i % 2 ? "#ff8fb8" : "#ffb3d1"); }
+}
+/* দৃশ্য ৩: ফুলের বাগান থেকে ফুল তুলে মেয়েটির হাতে */
+const FCOL = ["#ff7eb3", "#ffd166", "#b9a0ff", "#ff6b6b", "#ffffff"];
+function flowerHead(x, y, c) {
+  sg.save(); sg.fillStyle = c; sg.shadowColor = c; sg.shadowBlur = 7; sg.beginPath(); sg.arc(x, y, 4.4, 0, 7); sg.fill();
+  sg.shadowBlur = 0; sg.fillStyle = "#fff3a0"; sg.beginPath(); sg.arc(x, y, 1.6, 0, 7); sg.fill(); sg.restore();
+}
+function sceneFlower(t, D) {
+  const p = t / D, gx = 100, picked = p > .43;
+  for (let i = 0; i < 5; i++) {
+    if (i === 0 && picked) continue;
+    const fx = 206 + i * 12, h = 15 + (i % 3) * 5, sway = Math.sin(t * 2 + i) * 1.6;
+    sg.strokeStyle = "#7fe3a2"; sg.lineWidth = 2; sg.beginPath(); sg.moveTo(fx, GY); sg.quadraticCurveTo(fx + sway, GY - h / 2, fx + sway, GY - h); sg.stroke();
+    flowerHead(fx + sway, GY - h - 2, FCOL[i]);
+  }
+  const out = seq(p, .02, .3), back = seq(p, .54, .76), give = seq(p, .76, .88), ph = t * 9;
+  const bend = seq(p, .3, .4) - seq(p, .46, .54), walking = p < .3 || (p > .54 && p < .76);
+  const bx = p < .5 ? lerp(-25, 190, out) : lerp(190, gx + 26, back);
+  let arms;
+  if (p < .3) arms = [.6 * Math.sin(ph), -.6 * Math.sin(ph)];
+  else if (p < .54) arms = [.3 + bend, .3 + bend];
+  else if (p < .76) arms = [1.0, -.4 * Math.sin(ph)];
+  else arms = [lerp(1.0, 1.55, give), .2];
+  const girl = person({x: gx, kind: "girl", ph: 0, amp: 0, lean: Math.sin(t * 2) * .8, arms: [lerp(.25, 1.5, seq(p, .74, .84)), .2]});
+  const boy = person({x: bx, kind: "boy", dir: p < .5 ? 1 : -1, ph, amp: walking ? 9 : 0, lean: walking ? 3 : 0, bend, arms});
+  if (picked) {
+    const hf = p < .84 ? boy[0] : girl[0];
+    sg.strokeStyle = "#7fe3a2"; sg.lineWidth = 2; sg.beginPath(); sg.moveTo(hf.x, hf.y + 7); sg.lineTo(hf.x, hf.y - 2); sg.stroke();
+    flowerHead(hf.x, hf.y - 5, FCOL[0]);
+  }
+  if (p > .86) for (let i = 0; i < 4; i++) { const q = ((p - .86) * 6 + i * .25) % 1; heart(gx - 8 + i * 8, GY - 66 - q * 30, 1 - q, 10, i % 2 ? "#ff8fb8" : "#ffd1dc"); }
+}
+const SCENES = [[sceneRain, 10], [sceneButterfly, 11], [sceneFlower, 13]];
+function runScene() {
+  if (document.hidden) { setTimeout(runScene, 5000); return; }
+  const [fn, D] = SCENES[sceneIdx++ % SCENES.length]; let t0 = null, last = 0;
+  scn.style.display = "block";
+  const frame = ts => {
+    if (t0 === null) { t0 = ts; last = ts; }
+    const t = (ts - t0) / 1000; sdt = Math.min(.05, (ts - last) / 1000); last = ts;
+    sg.clearRect(0, 0, SW, SH);
+    if (t >= D) { scn.style.display = "none"; setTimeout(runScene, 28000 + Math.random() * 14000); return; }
+    sg.save(); sg.globalAlpha = .9 * Math.min(1, t / 1.2, (D - t) / 1.2);
+    ground(); fn(t, D);
+    sg.restore();
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+let scenesOn = false;
+function startScenes() { if (still || scenesOn) return; scenesOn = true; setTimeout(runScene, 9000); }
+
+/* ===== দ্রুত পড়ার বোতাম ===== */
+$("fbtn").addEventListener("click", () => {
+  fastMode = !fastMode;
+  $("fbtn").classList.toggle("on", fastMode);
+  $("fbtn").textContent = fastMode ? "▶ ধীরে" : "⏩ দ্রুত";
+  $("fbtn").setAttribute("aria-label", fastMode ? "ধীরে পড়ো" : "দ্রুত পড়ো");
+});
 
 /* the moment */
 const cake = $("cake");
